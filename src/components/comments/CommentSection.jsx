@@ -30,18 +30,44 @@ export default function CommentSection({ postId, onCommentAdded }) {
 
   async function fetchComments() {
     setLoading(true)
-    const { data, error } = await supabase
-      .from('comments')
-      .select(`
-        *,
-        author:profiles!comments_profile_id_fkey(id, full_name, username, profile_photo_url),
-        likes(id, profile_id)
-      `)
-      .eq('post_id', postId)
-      .order('created_at', { ascending: true })
+    try {
+      const { data, error } = await supabase
+        .from('comments')
+        .select(`
+          *,
+          author:profiles!comments_profile_id_fkey(id, full_name, username, profile_photo_url)
+        `)
+        .eq('post_id', postId)
+        .order('created_at', { ascending: true })
 
-    if (!error) setComments(data || [])
-    setLoading(false)
+      if (error) throw error
+
+      // Fetch likes separately (no FK between likes and comments)
+      const commentIds = (data || []).map(c => c.id)
+      let likesMap = {}
+      if (commentIds.length > 0) {
+        const { data: allLikes } = await supabase
+          .from('likes')
+          .select('id, profile_id, target_id')
+          .in('target_id', commentIds)
+          .eq('target_type', 'comment')
+        ;(allLikes || []).forEach(like => {
+          if (!likesMap[like.target_id]) likesMap[like.target_id] = []
+          likesMap[like.target_id].push(like)
+        })
+      }
+
+      const commentsWithLikes = (data || []).map(comment => ({
+        ...comment,
+        likes: likesMap[comment.id] || []
+      }))
+
+      setComments(commentsWithLikes)
+    } catch (err) {
+      console.error('Error fetching comments:', err)
+    } finally {
+      setLoading(false)
+    }
   }
 
   async function handleSubmit(e) {
