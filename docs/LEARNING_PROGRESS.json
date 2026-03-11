@@ -1,0 +1,232 @@
+{
+  "nguoi_hoc": "Người dùng",
+  "du_an": "Pumiah Social",
+  "ngay": "2026-03-11",
+
+  "khai_niem_da_minh_hoa": [
+    {
+      "khai_niem": "Kiến Trúc Component React",
+      "danh_muc": "Frontend",
+      "phan_tram_tien_do": 95,
+      "vi_du": [
+        "Thư viện component UI tái sử dụng (Button, Input, Avatar, Card, Modal, Spinner)",
+        "Component phức hợp với tệp CSS ghép đôi",
+        "Component bố cục sử dụng React Router Outlet"
+      ]
+    },
+    {
+      "khai_niem": "React Context API & Quản Lý State",
+      "danh_muc": "State",
+      "phan_tram_tien_do": 90,
+      "vi_du": [
+        "AuthContext: quản lý phiên, CRUD hồ sơ, tải ảnh",
+        "FriendsContext: vòng đời yêu cầu, hàm trợ giúp trạng thái",
+        "NotificationsContext: đăng ký thời gian thực, đánh dấu đã đọc"
+      ]
+    },
+    {
+      "khai_niem": "React Router v6 (Routes Lồng Nhau)",
+      "danh_muc": "Routing",
+      "phan_tram_tien_do": 85,
+      "vi_du": [
+        "Routes bố cục lồng nhau (AuthLayout vs AppLayout)",
+        "Bảo vệ route được bảo vệ với logic chuyển hướng",
+        "Tham số route động (/profile/:id)",
+        "Component Navigate cho chuyển hướng lập trình"
+      ]
+    },
+    {
+      "khai_niem": "Hệ Thống Thiết Kế CSS",
+      "danh_muc": "Styling",
+      "phan_tram_tien_do": 90,
+      "vi_du": [
+        "Hơn 60 CSS custom properties cho design tokens",
+        "Hiệu ứng glassmorphism (backdrop-filter, viền kính)",
+        "Breakpoints responsive với media queries",
+        "Quy ước đặt tên kiểu BEM cho scoping",
+        "Keyframe animations (fade-in, slide-up, scale-in, pulse)"
+      ]
+    },
+    {
+      "khai_niem": "Tích Hợp Backend Supabase",
+      "danh_muc": "Backend",
+      "phan_tram_tien_do": 85,
+      "vi_du": [
+        "Auth: đăng ký và đăng nhập email/mật khẩu",
+        "Cơ sở dữ liệu: thao tác CRUD với joins khóa ngoại",
+        "Storage: tải tệp với tạo URL công khai",
+        "Realtime: đăng ký WebSocket cho dữ liệu trực tiếp",
+        "RLS: thiết kế chính sách Row Level Security"
+      ]
+    },
+    {
+      "khai_niem": "Thiết Kế Cơ Sở Dữ Liệu (PostgreSQL)",
+      "danh_muc": "Cơ sở dữ liệu",
+      "phan_tram_tien_do": 80,
+      "vi_du": [
+        "Schema chuẩn hóa với 7 bảng",
+        "Ràng buộc khóa ngoại với xóa theo tầng",
+        "Ràng buộc check cho validation dữ liệu",
+        "Ràng buộc unique để ngăn chặn trùng lặp",
+        "Mẫu ID có thứ tự cho quan hệ hai chiều",
+        "Liên kết đa hình (likes → post/comment)"
+      ]
+    },
+    {
+      "khai_niem": "Bảo Mật Cơ Sở Dữ Liệu (RLS)",
+      "danh_muc": "Bảo mật",
+      "phan_tram_tien_do": 75,
+      "vi_du": [
+        "21 chính sách RLS trên 7 bảng",
+        "Chính sách đọc: công khai vs chỉ chủ sở hữu",
+        "Chính sách ghi: kiểm tra auth.uid()",
+        "Chính sách storage: đọc công khai, ghi đã xác thực"
+      ]
+    },
+    {
+      "khai_niem": "Database Triggers & Functions",
+      "danh_muc": "Cơ sở dữ liệu",
+      "phan_tram_tien_do": 70,
+      "vi_du": [
+        "Hàm trigger PL/pgSQL",
+        "Tự động thông báo khi thích, bình luận, yêu cầu kết bạn",
+        "Hàm SECURITY DEFINER cho chèn xuyên người dùng"
+      ]
+    },
+    {
+      "khai_niem": "PWA (Ứng Dụng Web Tiến Bộ)",
+      "danh_muc": "Nền tảng Web",
+      "phan_tram_tien_do": 70,
+      "vi_du": [
+        "Web App Manifest (tên, icons, chế độ hiển thị)",
+        "Service worker với chiến lược cache-first",
+        "Stale-while-revalidate cho gọi API",
+        "Component phát hiện trực tuyến/ngoại tuyến"
+      ]
+    },
+    {
+      "khai_niem": "Thiết Kế Responsive",
+      "danh_muc": "UI/UX",
+      "phan_tram_tien_do": 85,
+      "vi_du": [
+        "Di động: thanh tab phía dưới + header hamburger",
+        "Tablet: thanh sidebar icon có thể thu gọn",
+        "Desktop: sidebar đầy đủ với nhãn",
+        "Phương pháp media query mobile-first"
+      ]
+    },
+    {
+      "khai_niem": "Cập Nhật UI Lạc Quan",
+      "danh_muc": "UX",
+      "phan_tram_tien_do": 65,
+      "vi_du": [
+        "Bật/tắt thích/bỏ thích tức thì trước khi API xác nhận",
+        "Cập nhật state cục bộ trước khi refetch"
+      ]
+    },
+    {
+      "khai_niem": "Xử Lý Form & Validation",
+      "danh_muc": "Frontend",
+      "phan_tram_tien_do": 80,
+      "vi_du": [
+        "Controlled form inputs với useState",
+        "Validation phía client (trùng mật khẩu, độ dài tối thiểu)",
+        "Hiển thị lỗi với thông báo lỗi có styling",
+        "Trạng thái tải trên nút gửi",
+        "File input với xem trước (avatar, ảnh)"
+      ]
+    }
+  ],
+
+  "ky_nang_da_thuc_hanh": {
+    "quan_ly_state": { "cap_do": "trung_cap", "gio_tuong_duong": 3 },
+    "routing": { "cap_do": "trung_cap", "gio_tuong_duong": 2 },
+    "tich_hop_api": { "cap_do": "trung_cap", "gio_tuong_duong": 4 },
+    "thiet_ke_css": { "cap_do": "nang_cao", "gio_tuong_duong": 3 },
+    "thiet_ke_csdl": { "cap_do": "trung_cap", "gio_tuong_duong": 3 },
+    "xac_thuc": { "cap_do": "trung_cap", "gio_tuong_duong": 2 },
+    "tai_tep": { "cap_do": "co_ban_trung_cap", "gio_tuong_duong": 1 },
+    "du_lieu_thoi_gian_thuc": { "cap_do": "co_ban_trung_cap", "gio_tuong_duong": 1 },
+    "pwa": { "cap_do": "co_ban", "gio_tuong_duong": 1 },
+    "thiet_ke_responsive": { "cap_do": "trung_cap", "gio_tuong_duong": 2 }
+  },
+
+  "khoang_trong_kien_thuc_da_xac_dinh": [
+    {
+      "khoang_trong": "An toàn kiểu TypeScript",
+      "muc_do": "trung_binh",
+      "goi_y": "Chuyển JSX sang TSX với typed props và Supabase generated types"
+    },
+    {
+      "khoang_trong": "Kiểm thử tự động",
+      "muc_do": "cao",
+      "goi_y": "Thêm Vitest unit tests và Playwright E2E tests (mẫu trong TEST_PLAN.md)"
+    },
+    {
+      "khoang_trong": "Component Error Boundary",
+      "muc_do": "trung_binh",
+      "goi_y": "Thêm React Error Boundaries để xử lý lỗi crash duyên dáng"
+    },
+    {
+      "khoang_trong": "Tối ưu hóa ảnh",
+      "muc_do": "thap",
+      "goi_y": "Thêm nén phía client trước khi tải lên, phục vụ định dạng WebP"
+    },
+    {
+      "khoang_trong": "Phân trang / cuộn vô hạn",
+      "muc_do": "trung_binh",
+      "goi_y": "Triển khai phân trang dựa trên cursor cho bảng tin và bình luận"
+    },
+    {
+      "khoang_trong": "Khả năng tiếp cận (a11y)",
+      "muc_do": "trung_binh",
+      "goi_y": "Kiểm tra với axe-core, thêm ARIA labels cho nút icon và phần tử tương tác"
+    }
+  ],
+
+  "bai_tap_de_xuat": [
+    {
+      "bai_tap": "Thêm TypeScript",
+      "do_kho": "trung_binh",
+      "ky_nang": ["TypeScript", "an toàn kiểu", "tạo kiểu Supabase"],
+      "mo_ta": "Chuyển tất cả tệp .jsx sang .tsx, tạo kiểu Supabase, thêm typing nghiêm ngặt"
+    },
+    {
+      "bai_tap": "Thêm tìm kiếm người dùng",
+      "do_kho": "de",
+      "ky_nang": ["tìm kiếm", "debounce", "truy vấn ilike Supabase"],
+      "mo_ta": "Xây dựng thanh tìm kiếm để tìm người dùng theo tên hoặc tên người dùng"
+    },
+    {
+      "bai_tap": "Thêm chỉnh sửa bài đăng",
+      "do_kho": "de",
+      "ky_nang": ["CRUD update", "modal forms"],
+      "mo_ta": "Cho phép người dùng chỉnh sửa bài đăng của mình với modal chỉnh sửa"
+    },
+    {
+      "bai_tap": "Triển khai cuộn vô hạn",
+      "do_kho": "trung_binh",
+      "ky_nang": ["Intersection Observer", "phân trang", "truy vấn dựa trên cursor"],
+      "mo_ta": "Thay thế giới hạn 50 bài đăng bằng tải cuộn vô hạn"
+    },
+    {
+      "bai_tap": "Thêm chuyển đổi chủ đề tối/sáng",
+      "do_kho": "de",
+      "ky_nang": ["CSS variables", "localStorage", "context"],
+      "mo_ta": "Xây dựng bộ chuyển đổi chủ đề sử dụng hệ thống CSS variable hiện có"
+    },
+    {
+      "bai_tap": "Triển khai lên production",
+      "do_kho": "trung_binh",
+      "ky_nang": ["Vercel/Netlify", "biến môi trường", "CI/CD"],
+      "mo_ta": "Triển khai lên nền tảng hosting với cấu hình env phù hợp"
+    }
+  ],
+
+  "tien_do_tong_the": {
+    "phan_tram_hoan_thanh": 85,
+    "linh_vuc_manh_nhat": ["Hệ thống thiết kế CSS", "Các component React", "Tích hợp Supabase"],
+    "linh_vuc_can_cai_thien": ["Kiểm thử", "TypeScript", "Khả năng tiếp cận"],
+    "moc_tiep_theo": "Thêm kiểm thử tự động và chuyển đổi TypeScript"
+  }
+}

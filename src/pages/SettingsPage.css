@@ -1,0 +1,101 @@
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.settings-page__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+}
+
+.settings-page__card {
+  padding: var(--space-6);
+}
+
+.settings-page__section-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.settings-page__error {
+  background: var(--color-error-bg);
+  color: var(--color-error);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-sm);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  margin-bottom: var(--space-4);
+}
+
+.settings-page__success {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-sm);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  margin-bottom: var(--space-4);
+  animation: fadeIn 0.3s ease;
+}
+
+.settings-page__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.settings-page__avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.settings-page__avatar-label {
+  position: relative;
+  cursor: pointer;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.settings-page__avatar-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  color: white;
+  font-size: 24px;
+  border-radius: var(--radius-full);
+}
+
+.settings-page__avatar-label:hover .settings-page__avatar-overlay {
+  opacity: 1;
+}
+
+.settings-page__avatar-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.settings-page__bio {
+  resize: vertical;
+  min-height: 80px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  outline: none;
+  width: 100%;
+}
+
+.settings-page__bio::placeholder {
+  color: var(--color-text-tertiary);
+}

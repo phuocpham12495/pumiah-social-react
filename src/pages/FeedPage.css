@@ -1,0 +1,23 @@
+.feed-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.feed-page__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+}
+
+.feed-page__posts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.feed-page__empty {
+  text-align: center;
+  padding: var(--space-16) var(--space-4);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-base);
+}

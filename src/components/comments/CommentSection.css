@@ -1,0 +1,111 @@
+.comment-section {
+  border-top: 1px solid var(--border-color);
+  padding: var(--space-4) var(--space-5);
+}
+
+.comment-section__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.comment {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+}
+
+.comment__body {
+  flex: 1;
+}
+
+.comment__bubble {
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-3);
+}
+
+.comment__author {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-accent);
+}
+
+.comment__text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-normal);
+  margin-top: 2px;
+  word-break: break-word;
+}
+
+.comment__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-1);
+  padding-left: var(--space-2);
+}
+
+.comment__time {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}
+
+.comment__action {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  color: var(--color-text-tertiary);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.comment__action:hover {
+  color: var(--color-text-primary);
+}
+
+.comment__action--liked {
+  color: var(--color-accent-secondary);
+}
+
+.comment__action--liked .filled {
+  fill: var(--color-accent-secondary);
+}
+
+.comment__action--delete:hover {
+  color: var(--color-error);
+}
+
+.comment-section__form {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.comment-section__input {
+  flex: 1;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-4);
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.comment-section__input:focus {
+  border-color: var(--color-accent-primary);
+}
+
+.comment-section__input::placeholder {
+  color: var(--color-text-tertiary);
+}

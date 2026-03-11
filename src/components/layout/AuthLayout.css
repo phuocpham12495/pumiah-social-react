@@ -1,0 +1,111 @@
+.auth-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-layout__container {
+  width: 100%;
+  max-width: 440px;
+  z-index: 1;
+}
+
+.auth-layout__logo {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.auth-layout__logo-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-xl);
+  background: var(--color-accent-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight-extrabold);
+  font-size: var(--font-size-3xl);
+  color: white;
+  margin: 0 auto var(--space-4);
+  box-shadow: var(--shadow-glow);
+}
+
+.auth-layout__logo-text {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-extrabold);
+  background: var(--color-accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-2);
+}
+
+.auth-layout__tagline {
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-base);
+}
+
+.auth-layout__card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Floating Orbs */
+.auth-layout__orbs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.auth-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+}
+
+.auth-orb--1 {
+  width: 400px;
+  height: 400px;
+  background: rgba(124, 58, 237, 0.15);
+  top: -100px;
+  right: -100px;
+  animation: float 8s ease-in-out infinite;
+}
+
+.auth-orb--2 {
+  width: 300px;
+  height: 300px;
+  background: rgba(219, 39, 119, 0.1);
+  bottom: -50px;
+  left: -80px;
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+.auth-orb--3 {
+  width: 200px;
+  height: 200px;
+  background: rgba(59, 130, 246, 0.1);
+  top: 40%;
+  left: 60%;
+  animation: float 12s ease-in-out infinite 2s;
+}
+
+@media (max-width: 480px) {
+  .auth-layout__card {
+    padding: var(--space-5);
+  }
+  .auth-layout__logo-text {
+    font-size: var(--font-size-2xl);
+  }
+}

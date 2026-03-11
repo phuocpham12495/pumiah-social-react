@@ -1,0 +1,207 @@
+{
+  "ten_du_an": "Pumiah Social",
+  "phien_ban": "1.0.0",
+  "ngay_tao": "2026-03-11T05:40:00+07:00",
+  "ngay_cap_nhat": "2026-03-11T13:35:00+07:00",
+
+  "cac_tinh_nang": [
+    {
+      "id": "F001",
+      "ten": "Hệ Thống Xác Thực",
+      "uu_tien": "P0",
+      "trang_thai": "hoan_thanh",
+      "sprint": 1,
+      "nhiem_vu": [
+        { "nhiem_vu": "Cấu hình Supabase Auth", "trang_thai": "xong", "noi_luc": "S" },
+        { "nhiem_vu": "Trang đăng ký với email/mật khẩu", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Trang đăng nhập với validation", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Auth context với quản lý phiên", "trang_thai": "xong", "noi_luc": "L" },
+        { "nhiem_vu": "Bọc route được bảo vệ", "trang_thai": "xong", "noi_luc": "S" },
+        { "nhiem_vu": "Luồng xác nhận email", "trang_thai": "xong", "noi_luc": "S" }
+      ]
+    },
+    {
+      "id": "F002",
+      "ten": "Hồ Sơ Người Dùng",
+      "uu_tien": "P0",
+      "trang_thai": "hoan_thanh",
+      "sprint": 1,
+      "nhiem_vu": [
+        { "nhiem_vu": "Trang tạo hồ sơ (thiết lập lần đầu)", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Trang hồ sơ với ảnh bìa và avatar", "trang_thai": "xong", "noi_luc": "L" },
+        { "nhiem_vu": "Trang cài đặt để chỉnh sửa hồ sơ", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Tải ảnh hồ sơ lên Supabase Storage", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Tải ảnh bìa lên", "trang_thai": "xong", "noi_luc": "M" }
+      ]
+    },
+    {
+      "id": "F003",
+      "ten": "Quản Lý Bạn Bè",
+      "uu_tien": "P0",
+      "trang_thai": "hoan_thanh",
+      "sprint": 2,
+      "nhiem_vu": [
+        { "nhiem_vu": "Gửi yêu cầu kết bạn", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Chấp nhận/từ chối yêu cầu kết bạn", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Xem danh sách bạn bè với các tab", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Xóa bạn bè với xác nhận", "trang_thai": "xong", "noi_luc": "S" },
+        { "nhiem_vu": "Trạng thái bạn bè trên trang hồ sơ", "trang_thai": "xong", "noi_luc": "M" }
+      ]
+    },
+    {
+      "id": "F004",
+      "ten": "Hệ Thống Bài Đăng",
+      "uu_tien": "P0",
+      "trang_thai": "hoan_thanh",
+      "sprint": 2,
+      "nhiem_vu": [
+        { "nhiem_vu": "Tạo bài đăng văn bản", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Tạo bài đăng ảnh với tải lên", "trang_thai": "xong", "noi_luc": "L" },
+        { "nhiem_vu": "Tạo bài đăng liên kết", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Trang bảng tin với hiển thị theo thời gian", "trang_thai": "xong", "noi_luc": "L" },
+        { "nhiem_vu": "Component PostCard với thông tin tác giả", "trang_thai": "xong", "noi_luc": "L" },
+        { "nhiem_vu": "Xóa bài đăng của mình", "trang_thai": "xong", "noi_luc": "S" },
+        { "nhiem_vu": "Cập nhật bảng tin thời gian thực", "trang_thai": "xong", "noi_luc": "M" }
+      ]
+    },
+    {
+      "id": "F005",
+      "ten": "Bình Luận & Lượt Thích",
+      "uu_tien": "P1",
+      "trang_thai": "hoan_thanh",
+      "sprint": 2,
+      "nhiem_vu": [
+        { "nhiem_vu": "Thêm bình luận vào bài đăng", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Xóa bình luận của mình", "trang_thai": "xong", "noi_luc": "S" },
+        { "nhiem_vu": "Thích/bỏ thích bài đăng (lạc quan)", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Thích bình luận", "trang_thai": "xong", "noi_luc": "S" },
+        { "nhiem_vu": "Số lượng thích và bình luận", "trang_thai": "xong", "noi_luc": "S" }
+      ]
+    },
+    {
+      "id": "F006",
+      "ten": "Thông Báo",
+      "uu_tien": "P1",
+      "trang_thai": "hoan_thanh",
+      "sprint": 3,
+      "nhiem_vu": [
+        { "nhiem_vu": "Trang thông báo với icon theo loại", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Đăng ký thông báo thời gian thực", "trang_thai": "xong", "noi_luc": "L" },
+        { "nhiem_vu": "Huy hiệu chưa đọc trong sidebar", "trang_thai": "xong", "noi_luc": "S" },
+        { "nhiem_vu": "Đánh dấu đã đọc / đánh dấu tất cả đã đọc", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Database triggers cho thông báo tự động", "trang_thai": "xong", "noi_luc": "L" }
+      ]
+    },
+    {
+      "id": "F007",
+      "ten": "Hệ Thống Thiết Kế & UI",
+      "uu_tien": "P0",
+      "trang_thai": "hoan_thanh",
+      "sprint": 1,
+      "nhiem_vu": [
+        { "nhiem_vu": "Hệ thống thiết kế CSS với hơn 60 biến", "trang_thai": "xong", "noi_luc": "L" },
+        { "nhiem_vu": "Component Button (6 variants, 3 kích thước)", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Component Input với icon và validation", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Component Avatar với chữ cái dự phòng", "trang_thai": "xong", "noi_luc": "S" },
+        { "nhiem_vu": "Component Card với glassmorphism", "trang_thai": "xong", "noi_luc": "S" },
+        { "nhiem_vu": "Component Modal với animations", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Component Spinner (inline + toàn trang)", "trang_thai": "xong", "noi_luc": "S" },
+        { "nhiem_vu": "Banner ngoại tuyến với phát hiện tự động", "trang_thai": "xong", "noi_luc": "S" }
+      ]
+    },
+    {
+      "id": "F008",
+      "ten": "Bố Cục Responsive",
+      "uu_tien": "P0",
+      "trang_thai": "hoan_thanh",
+      "sprint": 1,
+      "nhiem_vu": [
+        { "nhiem_vu": "AppLayout với sidebar responsive", "trang_thai": "xong", "noi_luc": "L" },
+        { "nhiem_vu": "AuthLayout với quả cầu nổi", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Thanh tab phía dưới cho di động", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Thanh sidebar icon cho tablet", "trang_thai": "xong", "noi_luc": "S" }
+      ]
+    },
+    {
+      "id": "F009",
+      "ten": "Hỗ Trợ PWA",
+      "uu_tien": "P2",
+      "trang_thai": "hoan_thanh",
+      "sprint": 3,
+      "nhiem_vu": [
+        { "nhiem_vu": "Manifest ứng dụng web", "trang_thai": "xong", "noi_luc": "S" },
+        { "nhiem_vu": "Service worker với chiến lược caching", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Chỉ báo trạng thái ngoại tuyến", "trang_thai": "xong", "noi_luc": "S" }
+      ]
+    },
+    {
+      "id": "F010",
+      "ten": "Cơ Sở Dữ Liệu & Backend",
+      "uu_tien": "P0",
+      "trang_thai": "hoan_thanh",
+      "sprint": 1,
+      "nhiem_vu": [
+        { "nhiem_vu": "Schema cơ sở dữ liệu (7 bảng)", "trang_thai": "xong", "noi_luc": "L" },
+        { "nhiem_vu": "Chính sách Row Level Security (21)", "trang_thai": "xong", "noi_luc": "L" },
+        { "nhiem_vu": "Database triggers cho thông báo (4)", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Indexes hiệu năng (8)", "trang_thai": "xong", "noi_luc": "S" },
+        { "nhiem_vu": "Storage buckets và policies", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Cấu hình phát Realtime", "trang_thai": "xong", "noi_luc": "S" }
+      ]
+    }
+  ],
+
+  "do_thi_phu_thuoc": {
+    "F001_XacThuc": [],
+    "F007_UI": [],
+    "F008_BoCuc": ["F007_UI"],
+    "F002_HoSo": ["F001_XacThuc", "F010_CDSDL"],
+    "F003_BanBe": ["F002_HoSo"],
+    "F004_BaiDang": ["F002_HoSo", "F003_BanBe"],
+    "F005_BinhLuan": ["F004_BaiDang"],
+    "F006_ThongBao": ["F003_BanBe", "F005_BinhLuan"],
+    "F009_PWA": [],
+    "F010_CDSDL": ["F001_XacThuc"]
+  },
+
+  "rui_ro": [
+    {
+      "id": "R001",
+      "rui_ro": "Giới hạn tốc độ gói miễn phí Supabase",
+      "xac_suat": "Trung bình",
+      "tac_dong": "Trung bình",
+      "giam_thieu": "Triển khai caching phía client và gọi API có debounce"
+    },
+    {
+      "id": "R002",
+      "rui_ro": "Cấu hình sai chính sách RLS làm lộ dữ liệu",
+      "xac_suat": "Thấp",
+      "tac_dong": "Cao",
+      "giam_thieu": "Kiểm thử RLS toàn diện, kiểm tra advisor qua MCP"
+    },
+    {
+      "id": "R003",
+      "rui_ro": "Tải ảnh lớn làm giảm hiệu năng",
+      "xac_suat": "Cao",
+      "tac_dong": "Trung bình",
+      "giam_thieu": "Thêm nén ảnh phía client trước khi tải lên"
+    },
+    {
+      "id": "R004",
+      "rui_ro": "Hiệu năng bảng tin với nhiều bài đăng",
+      "xac_suat": "Trung bình",
+      "tac_dong": "Trung bình",
+      "giam_thieu": "Triển khai phân trang và cuộn ảo"
+    }
+  ],
+
+  "tom_tat": {
+    "tong_tinh_nang": 10,
+    "tinh_nang_hoan_thanh": 10,
+    "tong_nhiem_vu": 58,
+    "nhiem_vu_hoan_thanh": 58,
+    "phan_tram_hoan_thanh": 100,
+    "sprint_ke_hoach": 3,
+    "sprint_hoan_thanh": 3
+  }
+}
