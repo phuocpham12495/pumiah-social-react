@@ -39,17 +39,38 @@ export default function ProfilePage() {
       setProfile(prof)
 
       // Fetch user's posts
-      const { data: userPosts } = await supabase
+      const { data: userPosts, error: postsError } = await supabase
         .from('posts')
         .select(`
           *,
-          author:profiles!posts_profile_id_fkey(id, full_name, username, profile_photo_url),
-          likes(id, profile_id),
+          author:profiles(id, full_name, username, profile_photo_url),
           comments(id)
         `)
         .eq('profile_id', id)
         .order('created_at', { ascending: false })
-      setPosts(userPosts || [])
+
+      if (postsError) console.error('Posts error:', postsError)
+
+      // Fetch likes separately (no FK between likes and posts)
+      const postIds = (userPosts || []).map(p => p.id)
+      let likesMap = {}
+      if (postIds.length > 0) {
+        const { data: allLikes } = await supabase
+          .from('likes')
+          .select('id, profile_id, target_id')
+          .in('target_id', postIds)
+          .eq('target_type', 'post')
+        ;(allLikes || []).forEach(like => {
+          if (!likesMap[like.target_id]) likesMap[like.target_id] = []
+          likesMap[like.target_id].push(like)
+        })
+      }
+
+      const postsWithLikes = (userPosts || []).map(post => ({
+        ...post,
+        likes: likesMap[post.id] || []
+      }))
+      setPosts(postsWithLikes)
 
       // Fetch user's friends
       const { data: friendships } = await supabase

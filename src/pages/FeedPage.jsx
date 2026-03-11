@@ -9,9 +9,10 @@ import './FeedPage.css'
 
 export default function FeedPage() {
   const { user } = useAuth()
-  const { friends } = useFriends()
+  const { friends, loading: friendsLoading } = useFriends()
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
+  const [initialLoad, setInitialLoad] = useState(true)
 
   const fetchPosts = useCallback(async () => {
     if (!user) return
@@ -24,8 +25,7 @@ export default function FeedPage() {
         .from('posts')
         .select(`
           *,
-          author:profiles!posts_profile_id_fkey(id, full_name, username, profile_photo_url),
-          likes(id, profile_id),
+          author:profiles(id, full_name, username, profile_photo_url),
           comments(id)
         `)
         .in('profile_id', allIds)
@@ -33,11 +33,33 @@ export default function FeedPage() {
         .limit(50)
 
       if (error) throw error
-      setPosts(data || [])
+
+      // Fetch likes separately (no FK between likes and posts)
+      const postIds = (data || []).map(p => p.id)
+      let likesMap = {}
+      if (postIds.length > 0) {
+        const { data: allLikes } = await supabase
+          .from('likes')
+          .select('id, profile_id, target_id')
+          .in('target_id', postIds)
+          .eq('target_type', 'post')
+        ;(allLikes || []).forEach(like => {
+          if (!likesMap[like.target_id]) likesMap[like.target_id] = []
+          likesMap[like.target_id].push(like)
+        })
+      }
+
+      const postsWithLikes = (data || []).map(post => ({
+        ...post,
+        likes: likesMap[post.id] || []
+      }))
+
+      setPosts(postsWithLikes)
     } catch (err) {
       console.error('Error fetching posts:', err)
     } finally {
       setLoading(false)
+      setInitialLoad(false)
     }
   }, [user, friends])
 
@@ -65,7 +87,7 @@ export default function FeedPage() {
     setPosts(prev => prev.filter(p => p.id !== postId))
   }
 
-  if (loading) return <PageSpinner />
+  if (loading && initialLoad) return <PageSpinner />
 
   return (
     <div className="feed-page">
