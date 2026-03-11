@@ -69,9 +69,9 @@
 ### [05:49] Các Trang Tính Năng (5 trang)
 - **FeedPage**: Bảng tin bạn bè theo thứ tự thời gian với cập nhật thời gian thực
 - **ProfilePage**: Ảnh bìa, avatar, tiểu sử, lưới bạn bè, danh sách bài đăng, nút hành động bạn bè
-- **FriendsPage**: Xem theo tab (danh sách bạn bè / yêu cầu đang chờ)
+- **FriendsPage**: Ba tab (Bạn bè / Yêu cầu / Tìm kiếm)
 - **NotificationsPage**: Icon theo loại, trạng thái đã đọc/chưa đọc, đánh dấu tất cả đã đọc
-- **SettingsPage**: Chỉnh sửa các trường hồ sơ, thay đổi avatar
+- **SettingsPage**: Chỉnh sửa hồ sơ, thay đổi avatar và ảnh bìa
 
 ### [05:50] Các Component Bài Đăng & Bình Luận
 - **CreatePost**: Hỗ trợ bài đăng văn bản, tải ảnh, liên kết với xem trước
@@ -99,11 +99,38 @@
 
 ---
 
+## Phiên 2: 2026-03-11
+
+### [18:00] Sửa Lỗi Bài Đăng Không Hiển Thị
+- **Vấn đề**: Bài đăng không hiển thị trong bảng tin và hồ sơ (400 Bad Request)
+- **Nguyên nhân gốc**: Bảng `likes` sử dụng `target_id` đa hình — không có FK trực tiếp đến `posts` → join `likes(id, profile_id)` trong Supabase query thất bại
+- **Giải pháp**: Tách fetch likes thành truy vấn riêng, lọc theo `target_type = 'post'`
+- **Tệp sửa**: `FeedPage.jsx`, `ProfilePage.jsx`
+
+### [18:05] Thêm Tính Năng Tìm Bạn Bè
+- **Hành động**: Thêm tab "Find" thứ 3 vào FriendsPage
+- **Tính năng**: Tìm kiếm debounce 300ms, truy vấn `ilike` trên username/full_name, nút hành động động (Add Friend / Request Sent / Accept / Friends ✓), danh sách gợi ý
+- **Tệp sửa**: `FriendsPage.jsx`, `FriendsPage.css`
+
+### [18:28] Sửa Lỗi Cập Nhật Avatar & Ảnh Bìa
+- **Vấn đề 1**: Upload avatar lỗi "null value in column username violates not-null constraint"
+- **Nguyên nhân**: `updateProfile` dùng `upsert` → coi dữ liệu partial như INSERT mới → thiếu `username` NOT NULL
+- **Giải pháp**: Đổi `upsert` → `update().eq('id', user.id)` trong `AuthContext.jsx`
+- **Vấn đề 2**: Ảnh không cập nhật sau upload do browser cache
+- **Giải pháp**: Thêm `?t=Date.now()` vào URL ảnh để phá cache
+
+### [18:30] Di Chuyển Chỉnh Sửa Ảnh Bìa
+- **Hành động**: Xóa nút "Change Cover" khỏi ProfilePage, thêm vào SettingsPage
+- **Lý do**: Trang hồ sơ chỉ để xem, chỉnh sửa tập trung trong Settings
+- **UI**: Overlay chỉ có icon camera (giống avatar), không có text
+
+---
+
 ## Tóm Tắt Chỉ Số Xây Dựng
 
 | Chỉ số | Giá trị |
 |--------|---------|
-| Tổng tệp đã tạo | 42 |
+| Tổng tệp đã tạo/sửa | 48 |
 | React components | 15 |
 | Tệp CSS | 13 |
 | Trang | 8 |
@@ -111,6 +138,8 @@
 | Bảng Supabase | 7 |
 | RLS policies | 21 |
 | Database triggers | 4 |
+| Lỗi đã sửa | 4 |
+| Tính năng mới | 1 (Tìm Bạn Bè) |
 | Thời gian build (npm install) | ~14 giây |
 | Vite cold start | ~935ms |
 | Không có lỗi runtime | ✅ |

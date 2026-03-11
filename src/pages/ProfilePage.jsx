@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { FiMapPin, FiCalendar, FiEdit2, FiCamera } from 'react-icons/fi'
+import { FiMapPin, FiCalendar, FiEdit2 } from 'react-icons/fi'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../contexts/AuthContext'
 import { useFriends } from '../contexts/FriendsContext'
@@ -14,7 +14,7 @@ import './ProfilePage.css'
 export default function ProfilePage() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { user, profile: myProfile, uploadCoverPhoto } = useAuth()
+  const { user, profile: myProfile } = useAuth()
   const { friends, getFriendStatus, sendRequest, removeFriend, acceptRequest, friendRequests } = useFriends()
   const [profile, setProfile] = useState(null)
   const [posts, setPosts] = useState([])
@@ -106,11 +106,6 @@ export default function ProfilePage() {
     }
   }
 
-  async function handleCoverUpload(e) {
-    const file = e.target.files[0]
-    if (file) await uploadCoverPhoto(file)
-    fetchProfileData()
-  }
 
   function handlePostDeleted(postId) {
     setPosts(prev => prev.filter(p => p.id !== postId))
@@ -130,12 +125,6 @@ export default function ProfilePage() {
           <img src={profile.cover_photo_url} alt="Cover" className="profile-page__cover-img" />
         ) : (
           <div className="profile-page__cover-placeholder" />
-        )}
-        {isOwn && (
-          <label className="profile-page__cover-edit">
-            <FiCamera /> Change Cover
-            <input type="file" accept="image/*" onChange={handleCoverUpload} className="visually-hidden" />
-          </label>
         )}
       </div>
 

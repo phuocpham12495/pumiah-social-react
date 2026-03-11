@@ -99,3 +99,56 @@
 .settings-page__bio::placeholder {
   color: var(--color-text-tertiary);
 }
+
+/* Cover Photo Section */
+.settings-page__cover-section {
+  width: 100%;
+}
+
+.settings-page__cover-label {
+  position: relative;
+  display: block;
+  width: 100%;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.settings-page__cover-preview {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+.settings-page__cover-placeholder {
+  width: 100%;
+  height: 160px;
+  background: var(--color-bg-tertiary);
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+.settings-page__cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  color: white;
+  font-size: 24px;
+}
+
+.settings-page__cover-label:hover .settings-page__cover-overlay {
+  opacity: 1;
+}

@@ -255,6 +255,8 @@ Kịch bản: Ứng dụng xử lý ngoại tuyến một cách duyên dáng
 | US-17 | Xóa bài đăng | Bài đăng của mình → Menu → Xóa → Xác nhận | Bài đăng bị xóa khỏi bảng tin |
 | US-18 | Xem thông báo | Nhấp biểu tượng chuông | Danh sách thông báo theo loại |
 | US-19 | Đánh dấu đã đọc | Nhấp thông báo | Chấm xanh biến mất |
+| US-20 | Tìm bạn bè | Tab Find → Nhập tên → Kết quả hiển thị | Kết quả với nút hành động |
+| US-21 | Gửi yêu cầu từ Tìm kiếm | Tab Find → Nhấp "Add Friend" | Nút → "Request Sent" |
 
 ---
 

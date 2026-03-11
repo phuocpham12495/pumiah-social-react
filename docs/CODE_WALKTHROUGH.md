@@ -83,6 +83,11 @@ Các hàm trợ giúp:
   ├── sendRequest(receiverId) → INSERT friend_requests → refetch
   ├── acceptRequest(requestId) → UPDATE status → INSERT friendship → refetch
   └── removeFriend(userId) → DELETE friendship → cập nhật state cục bộ
+
+Tìm bạn bè (FriendsPage tab Find):
+  ├── Tìm kiếm: supabase.from('profiles').or(ilike username, ilike full_name)
+  ├── Debounce 300ms trước khi query
+  └── Hiển thị nút hành động dựa trên getFriendStatus()
 ```
 
 ### Luồng dữ liệu NotificationsContext:
@@ -213,10 +218,10 @@ supabase
   .from('posts')
   .select(`
     *,
-    author:profiles!posts_profile_id_fkey(id, full_name, username, profile_photo_url),
-    likes(id, profile_id),
+    author:profiles(id, full_name, username, profile_photo_url),
     comments(id)
   `)
+// Lưu ý: likes được fetch riêng vì bảng likes dùng target_id đa hình (không có FK trực tiếp đến posts)
 ```
 
 ### Mẫu 4: Render Điều Hướng Có Điều Kiện

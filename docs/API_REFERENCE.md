@@ -199,8 +199,9 @@ interface Notification {
 | Thao tác | Phương thức | Chính sách RLS |
 |----------|-------------|----------------|
 | **Lấy hồ sơ** | `supabase.from('profiles').select('*').eq('id', userId).single()` | Bất kỳ người dùng đã xác thực |
-| **Tạo/Cập nhật** | `supabase.from('profiles').upsert({ id, ...data }).select().single()` | Chỉ hồ sơ của mình |
-| **Tìm kiếm** | `supabase.from('profiles').select('*').ilike('username', '%query%')` | Bất kỳ người dùng đã xác thực |
+| **Tạo** | `supabase.from('profiles').upsert({ id, ...data }).select().single()` | Chỉ hồ sơ của mình |
+| **Cập nhật** | `supabase.from('profiles').update(data).eq('id', userId).select().single()` | Chỉ hồ sơ của mình |
+| **Tìm kiếm** | `supabase.from('profiles').select('*').or('username.ilike.%q%,full_name.ilike.%q%')` | Bất kỳ người dùng đã xác thực |
 
 ### Bài Đăng (Posts)
 
@@ -224,6 +225,7 @@ interface Notification {
 |----------|-------------|----------------|
 | **Thích** | `supabase.from('likes').insert({ profile_id, target_id, target_type })` | Chỉ lượt thích của mình |
 | **Bỏ thích** | `supabase.from('likes').delete().eq('profile_id', userId).eq('target_id', targetId)` | Chỉ lượt thích của mình |
+| **Lấy likes bài đăng** | `supabase.from('likes').select('*').in('target_id', postIds).eq('target_type', 'post')` | Fetch riêng (không join) |
 
 ### Yêu Cầu Kết Bạn (Friend Requests)
 

@@ -128,9 +128,9 @@ pumiah-social/
 │   │   ├── CreateProfilePage.jsx
 │   │   ├── FeedPage.jsx
 │   │   ├── ProfilePage.jsx
-│   │   ├── FriendsPage.jsx
+│   │   ├── FriendsPage.jsx    # Bạn bè / Yêu cầu / Tìm kiếm
 │   │   ├── NotificationsPage.jsx
-│   │   └── SettingsPage.jsx
+│   │   └── SettingsPage.jsx   # Avatar + Ảnh bìa + Thông tin
 │   ├── App.jsx                # Component gốc + routing
 │   ├── main.jsx               # Điểm vào
 │   └── index.css              # Hệ thống thiết kế + styles toàn cục
@@ -175,6 +175,7 @@ pumiah-social/
 - 🔐 **Xác thực** — Đăng ký, đăng nhập, xác nhận email
 - 👤 **Hồ sơ** — Avatar, ảnh bìa, tiểu sử, vị trí, ngày sinh
 - 👥 **Bạn bè** — Gửi/chấp nhận/từ chối yêu cầu, xóa bạn bè
+- 🔍 **Tìm Bạn** — Tìm kiếm người dùng theo tên/username, gợi ý kết bạn
 - 📝 **Bài đăng** — Văn bản, tải ảnh, chia sẻ liên kết
 - 💬 **Bình luận** — Thêm, xóa, với thông tin tác giả
 - ❤️ **Lượt thích** — Thích/bỏ thích bài đăng và bình luận

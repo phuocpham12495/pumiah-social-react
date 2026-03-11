@@ -8,7 +8,7 @@ import Card from '../components/ui/Card'
 import './SettingsPage.css'
 
 export default function SettingsPage() {
-  const { profile, updateProfile, uploadProfilePhoto } = useAuth()
+  const { profile, updateProfile, uploadProfilePhoto, uploadCoverPhoto } = useAuth()
   const [fullName, setFullName] = useState(profile?.full_name || '')
   const [username, setUsername] = useState(profile?.username || '')
   const [bio, setBio] = useState(profile?.bio || '')
@@ -49,6 +49,14 @@ export default function SettingsPage() {
     }
   }
 
+  async function handleCoverChange(e) {
+    const file = e.target.files[0]
+    if (file) {
+      const { error } = await uploadCoverPhoto(file)
+      if (error) setError(error.message)
+    }
+  }
+
   return (
     <div className="settings-page">
       <h1 className="settings-page__title">Settings</h1>
@@ -76,6 +84,30 @@ export default function SettingsPage() {
               className="visually-hidden"
             />
             <span className="settings-page__avatar-hint">Click to change avatar</span>
+          </div>
+
+          {/* Cover Photo */}
+          <div className="settings-page__cover-section">
+            <label htmlFor="settings-cover" className="settings-page__cover-label">
+              {profile?.cover_photo_url ? (
+                <img src={profile.cover_photo_url} alt="Cover" className="settings-page__cover-preview" />
+              ) : (
+                <div className="settings-page__cover-placeholder">
+                  <FiCamera />
+                  <span>Add Cover Photo</span>
+                </div>
+              )}
+              <div className="settings-page__cover-overlay">
+                <FiCamera />
+              </div>
+            </label>
+            <input
+              id="settings-cover"
+              type="file"
+              accept="image/*"
+              onChange={handleCoverChange}
+              className="visually-hidden"
+            />
           </div>
 
           <Input

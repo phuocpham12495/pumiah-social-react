@@ -79,7 +79,8 @@ export default function AuthProvider({ children }) {
   async function updateProfile(updates) {
     const { data, error } = await supabase
       .from('profiles')
-      .upsert({ id: user.id, ...updates })
+      .update(updates)
+      .eq('id', user.id)
       .select()
       .single()
 
@@ -102,7 +103,8 @@ export default function AuthProvider({ children }) {
       .from('profile_photos')
       .getPublicUrl(fileName)
 
-    return await updateProfile({ profile_photo_url: publicUrl })
+    // Add cache-busting timestamp so browser loads new image
+    return await updateProfile({ profile_photo_url: `${publicUrl}?t=${Date.now()}` })
   }
 
   async function uploadCoverPhoto(file) {
@@ -118,7 +120,8 @@ export default function AuthProvider({ children }) {
       .from('profile_photos')
       .getPublicUrl(fileName)
 
-    return await updateProfile({ cover_photo_url: publicUrl })
+    // Add cache-busting timestamp so browser loads new image
+    return await updateProfile({ cover_photo_url: `${publicUrl}?t=${Date.now()}` })
   }
 
   const value = {

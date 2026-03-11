@@ -2,7 +2,7 @@
   "ten_du_an": "Pumiah Social",
   "phien_ban": "1.0.0",
   "ngay_tao": "2026-03-11T05:40:00+07:00",
-  "ngay_cap_nhat": "2026-03-11T13:35:00+07:00",
+  "ngay_cap_nhat": "2026-03-11T18:58:00+07:00",
 
   "cac_tinh_nang": [
     {
@@ -31,7 +31,8 @@
         { "nhiem_vu": "Trang hồ sơ với ảnh bìa và avatar", "trang_thai": "xong", "noi_luc": "L" },
         { "nhiem_vu": "Trang cài đặt để chỉnh sửa hồ sơ", "trang_thai": "xong", "noi_luc": "M" },
         { "nhiem_vu": "Tải ảnh hồ sơ lên Supabase Storage", "trang_thai": "xong", "noi_luc": "M" },
-        { "nhiem_vu": "Tải ảnh bìa lên", "trang_thai": "xong", "noi_luc": "M" }
+        { "nhiem_vu": "Tải ảnh bìa lên trong Settings", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Cache-busting cho ảnh sau khi upload", "trang_thai": "xong", "noi_luc": "S" }
       ]
     },
     {
@@ -45,7 +46,9 @@
         { "nhiem_vu": "Chấp nhận/từ chối yêu cầu kết bạn", "trang_thai": "xong", "noi_luc": "M" },
         { "nhiem_vu": "Xem danh sách bạn bè với các tab", "trang_thai": "xong", "noi_luc": "M" },
         { "nhiem_vu": "Xóa bạn bè với xác nhận", "trang_thai": "xong", "noi_luc": "S" },
-        { "nhiem_vu": "Trạng thái bạn bè trên trang hồ sơ", "trang_thai": "xong", "noi_luc": "M" }
+        { "nhiem_vu": "Trạng thái bạn bè trên trang hồ sơ", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Tìm kiếm bạn bè với debounce và ilike query", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Gợi ý người dùng khi chưa tìm kiếm", "trang_thai": "xong", "noi_luc": "S" }
       ]
     },
     {
@@ -198,8 +201,8 @@
   "tom_tat": {
     "tong_tinh_nang": 10,
     "tinh_nang_hoan_thanh": 10,
-    "tong_nhiem_vu": 58,
-    "nhiem_vu_hoan_thanh": 58,
+    "tong_nhiem_vu": 62,
+    "nhiem_vu_hoan_thanh": 62,
     "phan_tram_hoan_thanh": 100,
     "sprint_ke_hoach": 3,
     "sprint_hoan_thanh": 3

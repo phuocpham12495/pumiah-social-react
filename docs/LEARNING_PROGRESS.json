@@ -192,10 +192,11 @@
       "mo_ta": "Chuyển tất cả tệp .jsx sang .tsx, tạo kiểu Supabase, thêm typing nghiêm ngặt"
     },
     {
-      "bai_tap": "Thêm tìm kiếm người dùng",
+      "bai_tap": "Tìm kiếm người dùng (Tìm Bạn Bè)",
       "do_kho": "de",
       "ky_nang": ["tìm kiếm", "debounce", "truy vấn ilike Supabase"],
-      "mo_ta": "Xây dựng thanh tìm kiếm để tìm người dùng theo tên hoặc tên người dùng"
+      "mo_ta": "Đã hoàn thành: Tab Find trong FriendsPage với debounce 300ms, truy vấn or(ilike), nút hành động động",
+      "trang_thai": "hoan_thanh"
     },
     {
       "bai_tap": "Thêm chỉnh sửa bài đăng",
@@ -224,8 +225,8 @@
   ],
 
   "tien_do_tong_the": {
-    "phan_tram_hoan_thanh": 85,
-    "linh_vuc_manh_nhat": ["Hệ thống thiết kế CSS", "Các component React", "Tích hợp Supabase"],
+    "phan_tram_hoan_thanh": 88,
+    "linh_vuc_manh_nhat": ["Hệ thống thiết kế CSS", "Các component React", "Tích hợp Supabase", "Gỡ lỗi Supabase query"],
     "linh_vuc_can_cai_thien": ["Kiểm thử", "TypeScript", "Khả năng tiếp cận"],
     "moc_tiep_theo": "Thêm kiểm thử tự động và chuyển đổi TypeScript"
   }
