@@ -85,3 +85,85 @@
   color: var(--color-text-tertiary);
   padding: var(--space-6);
 }
+
+/* ======================== */
+/* Find Tab Styles          */
+/* ======================== */
+
+.friends-page__find {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.friends-page__search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: var(--space-3) var(--space-4);
+  gap: var(--space-3);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.friends-page__search-bar:focus-within {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 0 3px var(--color-accent-primary-light);
+}
+
+.friends-page__search-icon {
+  color: var(--color-text-tertiary);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.friends-page__search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+}
+
+.friends-page__search-input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.friends-page__search-clear {
+  background: var(--color-bg-tertiary);
+  border: none;
+  color: var(--color-text-secondary);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: var(--font-size-xs);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.friends-page__search-clear:hover {
+  background: var(--color-accent-primary);
+  color: white;
+}
+
+.friends-page__find-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.friends-page__find-loading {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-8);
+}
