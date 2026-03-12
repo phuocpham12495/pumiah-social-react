@@ -2,7 +2,7 @@
   "ten_du_an": "Pumiah Social",
   "phien_ban": "1.0.0",
   "ngay_tao": "2026-03-11T05:40:00+07:00",
-  "ngay_cap_nhat": "2026-03-11T18:58:00+07:00",
+  "ngay_cap_nhat": "2026-03-12T14:08:00+07:00",
 
   "cac_tinh_nang": [
     {
@@ -151,6 +151,23 @@
         { "nhiem_vu": "Storage buckets và policies", "trang_thai": "xong", "noi_luc": "M" },
         { "nhiem_vu": "Cấu hình phát Realtime", "trang_thai": "xong", "noi_luc": "S" }
       ]
+    },
+    {
+      "id": "F011",
+      "ten": "Pumiah Messenger",
+      "uu_tien": "P1",
+      "trang_thai": "hoan_thanh",
+      "sprint": 4,
+      "nhiem_vu": [
+        { "nhiem_vu": "Schema conversations + messages (2 bảng, 6 RLS, 6 indexes)", "trang_thai": "xong", "noi_luc": "L" },
+        { "nhiem_vu": "ChatContext với realtime subscriptions", "trang_thai": "xong", "noi_luc": "L" },
+        { "nhiem_vu": "MessengerPage split-panel UI", "trang_thai": "xong", "noi_luc": "L" },
+        { "nhiem_vu": "MessengerPage.css premium styling", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Tích hợp navigation (route + sidebar + badge)", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Modal New Chat chọn bạn bè", "trang_thai": "xong", "noi_luc": "M" },
+        { "nhiem_vu": "Áp dụng migration lên Supabase", "trang_thai": "xong", "noi_luc": "S" },
+        { "nhiem_vu": "Xác minh trong browser", "trang_thai": "xong", "noi_luc": "S" }
+      ]
     }
   ],
 
@@ -164,7 +181,8 @@
     "F005_BinhLuan": ["F004_BaiDang"],
     "F006_ThongBao": ["F003_BanBe", "F005_BinhLuan"],
     "F009_PWA": [],
-    "F010_CDSDL": ["F001_XacThuc"]
+    "F010_CDSDL": ["F001_XacThuc"],
+    "F011_Messenger": ["F003_BanBe", "F010_CDSDL"]
   },
 
   "rui_ro": [
@@ -199,12 +217,12 @@
   ],
 
   "tom_tat": {
-    "tong_tinh_nang": 10,
-    "tinh_nang_hoan_thanh": 10,
-    "tong_nhiem_vu": 62,
-    "nhiem_vu_hoan_thanh": 62,
+    "tong_tinh_nang": 11,
+    "tinh_nang_hoan_thanh": 11,
+    "tong_nhiem_vu": 70,
+    "nhiem_vu_hoan_thanh": 70,
     "phan_tram_hoan_thanh": 100,
-    "sprint_ke_hoach": 3,
-    "sprint_hoan_thanh": 3
+    "sprint_ke_hoach": 4,
+    "sprint_hoan_thanh": 4
   }
 }

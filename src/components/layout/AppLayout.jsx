@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { FiHome, FiUser, FiUsers, FiBell, FiSettings, FiLogOut, FiMenu, FiX } from 'react-icons/fi'
+import { FiHome, FiUser, FiUsers, FiBell, FiSettings, FiLogOut, FiMenu, FiX, FiMessageSquare } from 'react-icons/fi'
 import { useAuth } from '../../contexts/AuthContext'
 import { useNotifications } from '../../contexts/NotificationsContext'
+import { useChat } from '../../contexts/ChatContext'
 import Avatar from '../ui/Avatar'
 import OfflineBanner from '../ui/OfflineBanner'
 import './AppLayout.css'
@@ -10,6 +11,7 @@ import './AppLayout.css'
 export default function AppLayout() {
   const { user, profile, signOut } = useAuth()
   const { unreadCount } = useNotifications()
+  const { unreadCount: chatUnread } = useChat()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const navigate = useNavigate()
 
@@ -22,6 +24,7 @@ export default function AppLayout() {
     { to: '/feed', icon: <FiHome />, label: 'Feed' },
     { to: `/profile/${user?.id}`, icon: <FiUser />, label: 'Profile' },
     { to: '/friends', icon: <FiUsers />, label: 'Friends' },
+    { to: '/messenger', icon: <FiMessageSquare />, label: 'Messenger', badge: chatUnread },
     { to: '/notifications', icon: <FiBell />, label: 'Notifications', badge: unreadCount },
     { to: '/settings', icon: <FiSettings />, label: 'Settings' },
   ]
@@ -96,7 +99,7 @@ export default function AppLayout() {
 
       {/* Bottom Tab Bar - Mobile */}
       <nav className="bottom-tabs">
-        {navItems.slice(0, 4).map(item => (
+        {navItems.slice(0, 5).map(item => (
           <NavLink
             key={item.to}
             to={item.to}

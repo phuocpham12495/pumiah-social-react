@@ -190,6 +190,33 @@ interface Notification {
 }
 ```
 
+### Cuộc Hội Thoại (Conversation)
+
+```typescript
+interface Conversation {
+  id: string
+  user1_id: string        // Luôn < user2_id (có thứ tự)
+  user2_id: string
+  last_message_at: string  // Dấu thời gian ISO — sắp xếp danh sách
+  created_at: string
+  // Join:
+  partner?: Profile        // Được resolve từ user1 hoặc user2
+}
+```
+
+### Tin Nhắn (Message)
+
+```typescript
+interface Message {
+  id: string
+  conversation_id: string  // Cuộc hội thoại chứa tin nhắn
+  sender_id: string        // Người gửi
+  content: string          // Nội dung tin nhắn
+  is_read: boolean         // Trạng thái đã đọc
+  created_at: string
+}
+```
+
 ---
 
 ## Thao Tác Cơ Sở Dữ Liệu
@@ -249,6 +276,22 @@ interface Notification {
 | **Lấy** | `supabase.from('notifications').select('*, sender:profiles(...)').eq('recipient_id', userId)` | Thông báo của mình |
 | **Đánh dấu đã đọc** | `supabase.from('notifications').update({ is_read: true }).eq('id', notifId)` | Thông báo của mình |
 | **Đánh dấu tất cả đã đọc** | `supabase.from('notifications').update({ is_read: true }).eq('recipient_id', userId).eq('is_read', false)` | Thông báo của mình |
+
+### Cuộc Hội Thoại (Conversations)
+
+| Thao tác | Phương thức | Chính sách RLS |
+|----------|-------------|----------------|
+| **Lấy hội thoại** | `supabase.from('conversations').select('*').or('user1_id.eq.{uid},user2_id.eq.{uid}').order('last_message_at', { ascending: false })` | Hội thoại của mình |
+| **Tạo** | `supabase.from('conversations').insert({ user1_id: min, user2_id: max })` | Là thành viên |
+| **Cập nhật** | `supabase.from('conversations').update({ last_message_at: now }).eq('id', convId)` | Là thành viên |
+
+### Tin Nhắn (Messages)
+
+| Thao tác | Phương thức | Chính sách RLS |
+|----------|-------------|----------------|
+| **Lấy tin nhắn** | `supabase.from('messages').select('*').eq('conversation_id', convId).order('created_at')` | Là thành viên hội thoại |
+| **Gửi** | `supabase.from('messages').insert({ conversation_id, sender_id, content })` | Là người gửi + thành viên |
+| **Đánh dấu đã đọc** | `supabase.from('messages').update({ is_read: true }).eq('conversation_id', convId).neq('sender_id', userId)` | Là thành viên hội thoại |
 
 ---
 
@@ -312,6 +355,20 @@ supabase
     schema: 'public',
     table: 'notifications',
     filter: `recipient_id=eq.${userId}`
+  }, callback)
+  .subscribe()
+```
+
+### Kênh Tin Nhắn
+
+```typescript
+supabase
+  .channel(`messages:${conversationId}`)
+  .on('postgres_changes', {
+    event: 'INSERT',
+    schema: 'public',
+    table: 'messages',
+    filter: `conversation_id=eq.${conversationId}`
   }, callback)
   .subscribe()
 ```

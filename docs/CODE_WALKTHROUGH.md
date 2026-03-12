@@ -35,11 +35,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           └── <ProtectedRoute>      // ← Bảo vệ: phải đăng nhập + có hồ sơ
               └── <FriendsProvider>  // ← Context bạn bè BÊN TRONG vùng được bảo vệ
                   └── <NotificationsProvider>  // ← Thông báo với thời gian thực
-                      └── <AppLayout>
-                          └── <Outlet />  // ← Trang render ở đây
+                      └── <ChatProvider>       // ← Nhắn tin với thời gian thực
+                          └── <AppLayout>
+                              └── <Outlet />  // ← Trang render ở đây
 ```
 
-**Insight quan trọng**: `FriendsProvider` và `NotificationsProvider` được lồng BÊN TRONG `ProtectedRoute`. Điều này đảm bảo chúng chỉ fetch dữ liệu khi người dùng đã xác thực.
+**Insight quan trọng**: `FriendsProvider`, `NotificationsProvider` và `ChatProvider` được lồng BÊN TRONG `ProtectedRoute`. Điều này đảm bảo chúng chỉ fetch dữ liệu khi người dùng đã xác thực.
 
 ---
 
@@ -101,6 +102,27 @@ Khi có thông báo mới:
   └── Sự kiện realtime → fetch thông báo đầy đủ với join → thêm vào đầu → tăng unreadCount
 ```
 
+### Luồng dữ liệu ChatContext:
+
+```
+Khi mount (user thay đổi):
+  ├── fetchConversations() → Truy vấn conversations + join profiles → setConversations([])
+  └── fetchUnreadCount() → Đếm messages chưa đọc → setUnreadCount(n)
+
+Khi chọn hội thoại:
+  ├── setActiveConversation(conv) → setMessages([])
+  ├── fetchMessages(convId) → Truy vấn messages theo conversation → setMessages([])
+  ├── markAsRead(convId) → UPDATE is_read = true cho tin nhắn chưa đọc
+  └── Đăng ký realtime → lắng nghe INSERT trên messages WHERE conversation_id = convId
+
+Khi gửi tin nhắn:
+  ├── INSERT message → Realtime phát tin cho người nhận
+  └── UPDATE conversation.last_message_at → Sắp xếp lại danh sách
+
+Khi có tin nhắn mới (realtime):
+  └── Sự kiện INSERT → thêm vào cuối messages → cập nhật preview + unreadCount
+```
+
 ---
 
 ## 3. Chiến Lược Fetch Dữ Liệu
@@ -114,7 +136,7 @@ useEffect(() => {
 }, [dependencies])  // Fetch lại khi user/friends thay đổi
 ```
 
-### Chiến lược 2: Đăng ký thời gian thực (bảng tin + thông báo)
+### Chiến lược 2: Đăng ký thời gian thực (bảng tin + thông báo + tin nhắn)
 
 ```jsx
 // Mẫu sử dụng trong FeedPage cho bài đăng mới
@@ -257,7 +279,7 @@ src/
 │   ├── layout/      ← Khung trang: AppLayout, AuthLayout
 │   ├── posts/       ← Theo miền: CreatePost, PostCard
 │   └── comments/    ← Theo miền: CommentSection
-├── contexts/        ← Các provider state toàn cục (auth, friends, notifications)
+├── contexts/        ← Các provider state toàn cục (auth, friends, notifications, chat)
 ├── lib/             ← Client dịch vụ bên ngoài (supabase.js)
 └── pages/           ← Components cấp route (một component mỗi route)
 ```

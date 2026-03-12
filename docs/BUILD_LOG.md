@@ -126,20 +126,61 @@
 
 ---
 
+## Phiên 3: 2026-03-12
+
+### [13:37] Lên Kế Hoạch Tính Năng Pumiah Messenger
+- **Hành động**: Phân tích codebase hiện tại để hiểu kiến trúc
+- **Quyết định**: Nhắn tin 1-1 chỉ giữa bạn bè, sử dụng Supabase Realtime
+- **Lý do**: Tận dụng hạ tầng đã có (friendships, realtime, RLS), giảm spam
+
+### [13:45] Schema Cơ Sở Dữ Liệu Messenger
+- **Hành động**: Thêm bảng `conversations` và `messages` vào schema.sql
+- **Thiết kế**: ID có thứ tự (`user1_id < user2_id`), cùng mẫu với friendships
+- **RLS**: 3 policies cho conversations, 3 cho messages (select/insert/update)
+- **Indexes**: 6 index mới (user1, user2, last_msg, conversation+created, sender, unread)
+- **Realtime**: Bật cho cả conversations và messages
+
+### [13:46] ChatContext — Quản Lý State Nhắn Tin
+- **Hành động**: Tạo `ChatContext.jsx` với đầy đủ state management
+- **Tính năng**: Danh sách hội thoại, tin nhắn active, đếm chưa đọc, Realtime subscription
+- **Mẫu**: Cùng mẫu Provider + Custom Hook như AuthContext/FriendsContext/NotificationsContext
+- **Quyết định**: useCallback + useRef cho subscriber management
+- **Lý do**: Tránh re-subscription khi dependency thay đổi
+
+### [13:47] MessengerPage — Giao Diện Chat
+- **Hành động**: Tạo `MessengerPage.jsx` + `MessengerPage.css`
+- **UI**: Split-panel (danh sách hội thoại trái + chat phải), responsive mobile
+- **Tính năng**: Bong bóng tin nhắn gradient, date dividers, auto-scroll, Enter-to-send
+- **Modal**: "New Chat" cho chọn bạn bè để bắt đầu hội thoại
+- **Quyết định**: CSS thuần với design tokens đã có
+- **Lý do**: Nhất quán với phong cách thiết kế glassmorphism tối
+
+### [13:48] Tích Hợp Điều Hướng
+- **Hành động**: Thêm ChatProvider, route /messenger, nav item vào sidebar/bottom tabs
+- **Tệp sửa**: `App.jsx`, `AppLayout.jsx`
+- **Huy hiệu**: Hiển thị số tin nhắn chưa đọc trên icon Messenger
+
+### [13:57] Xác Minh & Migration
+- **Hành động**: Test đăng nhập và xem Messenger page trong browser
+- **Kết quả**: Trang tải thành công, split-panel hiển thị đúng, nav item hoạt động
+- **Migration**: Áp dụng thành công lên Supabase project
+
+---
+
 ## Tóm Tắt Chỉ Số Xây Dựng
 
 | Chỉ số | Giá trị |
 |--------|---------|
-| Tổng tệp đã tạo/sửa | 48 |
-| React components | 15 |
-| Tệp CSS | 13 |
-| Trang | 8 |
-| Contexts | 3 |
-| Bảng Supabase | 7 |
-| RLS policies | 21 |
+| Tổng tệp đã tạo/sửa | 54 |
+| React components | 16 |
+| Tệp CSS | 14 |
+| Trang | 9 |
+| Contexts | 4 |
+| Bảng Supabase | 9 |
+| RLS policies | 27 |
 | Database triggers | 4 |
 | Lỗi đã sửa | 4 |
-| Tính năng mới | 1 (Tìm Bạn Bè) |
+| Tính năng mới | 2 (Tìm Bạn Bè, Pumiah Messenger) |
 | Thời gian build (npm install) | ~14 giây |
 | Vite cold start | ~935ms |
 | Không có lỗi runtime | ✅ |

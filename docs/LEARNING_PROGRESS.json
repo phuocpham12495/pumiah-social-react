@@ -1,7 +1,7 @@
 {
   "nguoi_hoc": "Người dùng",
   "du_an": "Pumiah Social",
-  "ngay": "2026-03-11",
+  "ngay": "2026-03-12",
 
   "khai_niem_da_minh_hoa": [
     {
@@ -21,7 +21,8 @@
       "vi_du": [
         "AuthContext: quản lý phiên, CRUD hồ sơ, tải ảnh",
         "FriendsContext: vòng đời yêu cầu, hàm trợ giúp trạng thái",
-        "NotificationsContext: đăng ký thời gian thực, đánh dấu đã đọc"
+        "NotificationsContext: đăng ký thời gian thực, đánh dấu đã đọc",
+        "ChatContext: hội thoại, tin nhắn, đếm chưa đọc, Realtime subscription"
       ]
     },
     {
@@ -55,20 +56,21 @@
         "Auth: đăng ký và đăng nhập email/mật khẩu",
         "Cơ sở dữ liệu: thao tác CRUD với joins khóa ngoại",
         "Storage: tải tệp với tạo URL công khai",
-        "Realtime: đăng ký WebSocket cho dữ liệu trực tiếp",
-        "RLS: thiết kế chính sách Row Level Security"
+        "Realtime: đăng ký WebSocket cho dữ liệu trực tiếp (thông báo + tin nhắn)",
+        "RLS: thiết kế chính sách Row Level Security",
+        "Realtime filter: lọc subscription theo conversation_id"
       ]
     },
     {
       "khai_niem": "Thiết Kế Cơ Sở Dữ Liệu (PostgreSQL)",
       "danh_muc": "Cơ sở dữ liệu",
-      "phan_tram_tien_do": 80,
+      "phan_tram_tien_do": 85,
       "vi_du": [
-        "Schema chuẩn hóa với 7 bảng",
+        "Schema chuẩn hóa với 9 bảng",
         "Ràng buộc khóa ngoại với xóa theo tầng",
         "Ràng buộc check cho validation dữ liệu",
         "Ràng buộc unique để ngăn chặn trùng lặp",
-        "Mẫu ID có thứ tự cho quan hệ hai chiều",
+        "Mẫu ID có thứ tự cho quan hệ hai chiều (friendships + conversations)",
         "Liên kết đa hình (likes → post/comment)"
       ]
     },
@@ -77,7 +79,7 @@
       "danh_muc": "Bảo mật",
       "phan_tram_tien_do": 75,
       "vi_du": [
-        "21 chính sách RLS trên 7 bảng",
+        "21 + 6 chính sách RLS trên 9 bảng",
         "Chính sách đọc: công khai vs chỉ chủ sở hữu",
         "Chính sách ghi: kiểm tra auth.uid()",
         "Chính sách storage: đọc công khai, ghi đã xác thực"
@@ -146,7 +148,7 @@
     "thiet_ke_csdl": { "cap_do": "trung_cap", "gio_tuong_duong": 3 },
     "xac_thuc": { "cap_do": "trung_cap", "gio_tuong_duong": 2 },
     "tai_tep": { "cap_do": "co_ban_trung_cap", "gio_tuong_duong": 1 },
-    "du_lieu_thoi_gian_thuc": { "cap_do": "co_ban_trung_cap", "gio_tuong_duong": 1 },
+    "du_lieu_thoi_gian_thuc": { "cap_do": "trung_cap", "gio_tuong_duong": 3 },
     "pwa": { "cap_do": "co_ban", "gio_tuong_duong": 1 },
     "thiet_ke_responsive": { "cap_do": "trung_cap", "gio_tuong_duong": 2 }
   },
@@ -199,6 +201,13 @@
       "trang_thai": "hoan_thanh"
     },
     {
+      "bai_tap": "Thêm Pumiah Messenger",
+      "do_kho": "trung_binh",
+      "ky_nang": ["Realtime", "Context API", "Split-panel UI", "RLS"],
+      "mo_ta": "Đã hoàn thành: Nhắn tin 1-1 thời gian thực với ChatContext, MessengerPage split-panel, 2 bảng mới + RLS",
+      "trang_thai": "hoan_thanh"
+    },
+    {
       "bai_tap": "Thêm chỉnh sửa bài đăng",
       "do_kho": "de",
       "ky_nang": ["CRUD update", "modal forms"],
@@ -225,8 +234,8 @@
   ],
 
   "tien_do_tong_the": {
-    "phan_tram_hoan_thanh": 88,
-    "linh_vuc_manh_nhat": ["Hệ thống thiết kế CSS", "Các component React", "Tích hợp Supabase", "Gỡ lỗi Supabase query"],
+    "phan_tram_hoan_thanh": 91,
+    "linh_vuc_manh_nhat": ["Hệ thống thiết kế CSS", "Các component React", "Tích hợp Supabase", "Gỡ lỗi Supabase query", "Dữ liệu thời gian thực"],
     "linh_vuc_can_cai_thien": ["Kiểm thử", "TypeScript", "Khả năng tiếp cận"],
     "moc_tiep_theo": "Thêm kiểm thử tự động và chuyển đổi TypeScript"
   }

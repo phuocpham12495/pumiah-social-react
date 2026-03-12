@@ -230,6 +230,22 @@ Kịch bản: Ứng dụng xử lý ngoại tuyến một cách duyên dáng
   Và các bài đăng mới được tải
 ```
 
+### IT-006: Luồng Nhắn Tin (Pumiah Messenger)
+```
+Kịch bản: Gửi tin nhắn thời gian thực giữa hai bạn bè
+  Cho rằng Người dùng A và Người dùng B là bạn bè
+  Khi Người dùng A đi đến /messenger
+  Và Người dùng A nhấp nút "New Chat" và chọn Người dùng B
+  Thì cuộc hội thoại mới được tạo với Người dùng B
+  Khi Người dùng A gửi tin nhắn "Xin chào!"
+  Thì tin nhắn xuất hiện trong chat của Người dùng A (bên phải, gradient)
+  Và Người dùng B nhận tin nhắn thời gian thực (bên trái)
+  Và huy hiệu chưa đọc tăng trên icon Messenger của B
+  Khi Người dùng B mở cuộc hội thoại
+  Thì tin nhắn được đánh dấu đã đọc
+  Và huy hiệu chưa đọc biến mất
+```
+
 ---
 
 ## Luồng Kiểm Thử E2E (User Stories)
@@ -257,6 +273,10 @@ Kịch bản: Ứng dụng xử lý ngoại tuyến một cách duyên dáng
 | US-19 | Đánh dấu đã đọc | Nhấp thông báo | Chấm xanh biến mất |
 | US-20 | Tìm bạn bè | Tab Find → Nhập tên → Kết quả hiển thị | Kết quả với nút hành động |
 | US-21 | Gửi yêu cầu từ Tìm kiếm | Tab Find → Nhấp "Add Friend" | Nút → "Request Sent" |
+| US-22 | Mở Messenger | Nhấp Messenger trong sidebar | Trang Messenger với danh sách hội thoại |
+| US-23 | Bắt đầu chat mới | Nhấp "+" → Chọn bạn bè | Cuộc hội thoại mới mở ra |
+| US-24 | Gửi tin nhắn | Nhập tin → Nhấn Enter hoặc nút gửi | Tin nhắn xuất hiện bên phải (gradient) |
+| US-25 | Nhận tin nhắn | Người khác gửi | Tin xuất hiện thời gian thực bên trái |
 
 ---
 

@@ -183,7 +183,75 @@ create policy "Notifications: update own read" on public.notifications
   for update to authenticated using (auth.uid() = recipient_id);
 
 -- =============================================
--- 8. INDEXES
+-- 8. CONVERSATIONS TABLE (Pumiah Messenger)
+-- =============================================
+create table if not exists public.conversations (
+  id uuid primary key default gen_random_uuid(),
+  user1_id uuid not null references public.profiles(id) on delete cascade,
+  user2_id uuid not null references public.profiles(id) on delete cascade,
+  last_message_at timestamptz default now() not null,
+  created_at timestamptz default now() not null,
+  constraint unique_conversation unique (user1_id, user2_id),
+  constraint ordered_conversation_ids check (user1_id < user2_id)
+);
+
+-- RLS for conversations
+alter table public.conversations enable row level security;
+
+create policy "Conversations: select own" on public.conversations
+  for select to authenticated using (auth.uid() = user1_id or auth.uid() = user2_id);
+
+create policy "Conversations: insert own" on public.conversations
+  for insert to authenticated with check (auth.uid() = user1_id or auth.uid() = user2_id);
+
+create policy "Conversations: update own" on public.conversations
+  for update to authenticated using (auth.uid() = user1_id or auth.uid() = user2_id);
+
+-- =============================================
+-- 9. MESSAGES TABLE (Pumiah Messenger)
+-- =============================================
+create table if not exists public.messages (
+  id uuid primary key default gen_random_uuid(),
+  conversation_id uuid not null references public.conversations(id) on delete cascade,
+  sender_id uuid not null references public.profiles(id) on delete cascade,
+  content text not null,
+  is_read boolean default false not null,
+  created_at timestamptz default now() not null
+);
+
+-- RLS for messages
+alter table public.messages enable row level security;
+
+create policy "Messages: select own conversations" on public.messages
+  for select to authenticated using (
+    exists (
+      select 1 from public.conversations c
+      where c.id = conversation_id
+      and (auth.uid() = c.user1_id or auth.uid() = c.user2_id)
+    )
+  );
+
+create policy "Messages: insert own" on public.messages
+  for insert to authenticated with check (
+    auth.uid() = sender_id
+    and exists (
+      select 1 from public.conversations c
+      where c.id = conversation_id
+      and (auth.uid() = c.user1_id or auth.uid() = c.user2_id)
+    )
+  );
+
+create policy "Messages: update read status" on public.messages
+  for update to authenticated using (
+    exists (
+      select 1 from public.conversations c
+      where c.id = conversation_id
+      and (auth.uid() = c.user1_id or auth.uid() = c.user2_id)
+    )
+  );
+
+-- =============================================
+-- 10. INDEXES
 -- =============================================
 create index if not exists idx_posts_profile_id on public.posts(profile_id);
 create index if not exists idx_posts_created_at on public.posts(created_at desc);
@@ -193,9 +261,15 @@ create index if not exists idx_notifications_recipient on public.notifications(r
 create index if not exists idx_friend_requests_receiver on public.friend_requests(receiver_id, status);
 create index if not exists idx_friendships_user1 on public.friendships(user1_id);
 create index if not exists idx_friendships_user2 on public.friendships(user2_id);
+create index if not exists idx_conversations_user1 on public.conversations(user1_id);
+create index if not exists idx_conversations_user2 on public.conversations(user2_id);
+create index if not exists idx_conversations_last_msg on public.conversations(last_message_at desc);
+create index if not exists idx_messages_conversation on public.messages(conversation_id, created_at);
+create index if not exists idx_messages_sender on public.messages(sender_id);
+create index if not exists idx_messages_unread on public.messages(conversation_id, is_read) where not is_read;
 
 -- =============================================
--- 9. DATABASE FUNCTIONS & TRIGGERS
+-- 11. DATABASE FUNCTIONS & TRIGGERS
 -- =============================================
 
 -- Function: Create notification on post like
@@ -298,7 +372,7 @@ create or replace trigger on_friend_request_updated
   for each row execute function public.handle_friend_request_accepted();
 
 -- =============================================
--- 10. STORAGE BUCKETS
+-- 12. STORAGE BUCKETS
 -- =============================================
 -- Run these in the Supabase Dashboard > Storage or via API:
 -- insert into storage.buckets (id, name, public) values ('profile_photos', 'profile_photos', true);
@@ -312,9 +386,11 @@ create or replace trigger on_friend_request_updated
 -- create policy "Authenticated upload post images" on storage.objects for insert to authenticated with check (bucket_id = 'post_images');
 
 -- =============================================
--- 11. ENABLE REALTIME
+-- 13. ENABLE REALTIME
 -- =============================================
 alter publication supabase_realtime add table public.posts;
 alter publication supabase_realtime add table public.notifications;
 alter publication supabase_realtime add table public.comments;
 alter publication supabase_realtime add table public.likes;
+alter publication supabase_realtime add table public.conversations;
+alter publication supabase_realtime add table public.messages;

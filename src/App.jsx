@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import AuthProvider, { useAuth } from './contexts/AuthContext'
 import FriendsProvider from './contexts/FriendsContext'
 import NotificationsProvider from './contexts/NotificationsContext'
+import ChatProvider from './contexts/ChatContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import AppLayout from './components/layout/AppLayout'
 import AuthLayout from './components/layout/AuthLayout'
@@ -14,6 +15,7 @@ import ProfilePage from './pages/ProfilePage'
 import SettingsPage from './pages/SettingsPage'
 import FriendsPage from './pages/FriendsPage'
 import NotificationsPage from './pages/NotificationsPage'
+import MessengerPage from './pages/MessengerPage'
 import { PageSpinner } from './components/ui/Spinner'
 
 function AppRoutes() {
@@ -41,7 +43,9 @@ function AppRoutes() {
           <ProtectedRoute>
             <FriendsProvider>
               <NotificationsProvider>
-                <AppLayout />
+                <ChatProvider>
+                  <AppLayout />
+                </ChatProvider>
               </NotificationsProvider>
             </FriendsProvider>
           </ProtectedRoute>
@@ -51,6 +55,7 @@ function AppRoutes() {
         <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/friends" element={<FriendsPage />} />
+        <Route path="/messenger" element={<MessengerPage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
       </Route>
 

@@ -24,8 +24,8 @@
 | **React Router** | ~12 KB gzip | v6, hỗ trợ tree-shaking |
 | **Supabase JS** | ~25 KB gzip | Auth + DB + Storage + Realtime |
 | **React Icons (tập con)** | ~3 KB gzip | Chỉ import icon Feather |
-| **Mã ứng dụng + CSS** | ~30 KB gzip | Tất cả components, trang, styles |
-| **Tổng ước tính** | ~112 KB gzip | Nằm trong mục tiêu 200 KB |
+| **Mã ứng dụng + CSS** | ~35 KB gzip | Tất cả components, trang, styles |
+| **Tổng ước tính** | ~117 KB gzip | Nằm trong mục tiêu 200 KB |
 
 ---
 
@@ -81,6 +81,10 @@
 | Thông báo theo người nhận | ✅ `idx_notifications_recipient` | Quét index tổng hợp |
 | Yêu cầu kết bạn theo người nhận | ✅ `idx_friend_requests_receiver` | Quét index tổng hợp |
 | Tình bạn theo user | ✅ `idx_friendships_user1/user2` | Hai lần quét index |
+| Hội thoại theo user | ✅ `idx_conversations_user1/user2` | Hai lần quét index |
+| Hội thoại theo thời gian | ✅ `idx_conversations_last_msg` | Quét index (giảm dần) |
+| Tin nhắn theo hội thoại | ✅ `idx_messages_conversation` | Quét index tổng hợp |
+| Tin nhắn chưa đọc | ✅ `idx_messages_unread` | Quét index từng phần (partial) |
 
 ---
 

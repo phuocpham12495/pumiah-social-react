@@ -77,8 +77,8 @@ Chọn Vanilla CSS với CSS custom properties vì:
 Cần quản lý state cho phiên xác thực, danh sách bạn bè và thông báo trên toàn ứng dụng.
 
 ### Quyết định
-Chọn React Context với custom hooks (`useAuth`, `useFriends`, `useNotifications`) vì:
-- Ba miền state riêng biệt với ranh giới rõ ràng
+Chọn React Context với custom hooks (`useAuth`, `useFriends`, `useNotifications`, `useChat`) vì:
+- Bốn miền state riêng biệt với ranh giới rõ ràng
 - Độ phức tạp vừa phải — không cần state chuẩn hóa
 - Tích hợp sẵn trong React — không thêm dependency
 - Custom hooks cung cấp API sạch sẽ
@@ -188,6 +188,36 @@ Service worker thủ công để kiểm soát chi tiết hơn chiến lược ca
 - Tài nguyên tĩnh: Cache-first (tải từ cache, mạng là phương án dự phòng)
 - Gọi API: Stale-while-revalidate (phản hồi từ cache, cập nhật ngầm)
 - Banner offline: Tự động phát hiện trực tuyến/ngoại tuyến qua component `OfflineBanner`
+
+---
+
+## ADR-008: Kiến Trúc Nhắn Tin (Pumiah Messenger)
+
+| Trường | Giá trị |
+|--------|---------|
+| **Trạng thái** | Đã chấp nhận |
+| **Ngày** | 2026-03-12 |
+| **Quyết định** | Nhắn tin 1-1 chỉ bạn bè qua Supabase Realtime |
+| **Mẫu thiết kế** | Split-panel UI + ChatContext + Realtime subscriptions |
+| **Phương án thay thế** | WebSocket tùy chỉnh, Firebase Messaging, Pusher |
+
+### Bối cảnh
+Cần thêm tính năng nhắn tin trực tiếp giữa bạn bè, với giao diện chuyên nghiệp và gửi tin nhắn thời gian thực.
+
+### Các Quyết Định Thiết Kế Chính
+
+1. **Chỉ bạn bè mới nhắn tin được**: Giảm spam, tận dụng bảng friendships đã có
+2. **ID hội thoại có thứ tự** (`user1_id < user2_id`): Cùng mẫu với friendships, ngăn trùng lặp
+3. **Supabase Realtime cho tin nhắn**: `postgres_changes` — tin nhắn lưu DB trước khi phát → không mất dữ liệu
+4. **Split-panel responsive**: Desktop hiển thị cả hai panel, mobile chuyển đổi giữa list và chat
+
+### Đánh đổi
+| Ưu điểm | Nhược điểm |
+|----------|------------|
+| Tận dụng hạ tầng Supabase đã có | Chỉ hỗ trợ 1-1, chưa có group chat |
+| RLS bảo vệ tin nhắn ở cấp DB | Kết nối Realtime thêm cho mỗi cuộc trò chuyện |
+| Tin nhắn lưu trữ bền vững | Không có end-to-end encryption |
+| Giao diện premium nhất quán | Bundle CSS tăng thêm ~400 dòng |
 
 ---
 

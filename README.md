@@ -119,6 +119,7 @@ pumiah-social/
 │   ├── contexts/
 │   │   ├── AuthContext.jsx    # State xác thực
 │   │   ├── FriendsContext.jsx # Quản lý bạn bè
+│   │   ├── ChatContext.jsx    # Nhắn tin thời gian thực
 │   │   └── NotificationsContext.jsx
 │   ├── lib/
 │   │   └── supabase.js        # Client Supabase
@@ -129,6 +130,7 @@ pumiah-social/
 │   │   ├── FeedPage.jsx
 │   │   ├── ProfilePage.jsx
 │   │   ├── FriendsPage.jsx    # Bạn bè / Yêu cầu / Tìm kiếm
+│   │   ├── MessengerPage.jsx  # Nhắn tin (Pumiah Messenger)
 │   │   ├── NotificationsPage.jsx
 │   │   └── SettingsPage.jsx   # Avatar + Ảnh bìa + Thông tin
 │   ├── App.jsx                # Component gốc + routing
@@ -166,7 +168,7 @@ pumiah-social/
 | **Cơ sở dữ liệu** | PostgreSQL | Qua Supabase |
 | **Xác thực** | Supabase Auth | Email/mật khẩu |
 | **Lưu trữ** | Supabase Storage | Ảnh hồ sơ, ảnh bài đăng |
-| **Thời gian thực** | Supabase Channels | Thông báo trực tiếp |
+| **Thời gian thực** | Supabase Channels | Thông báo trực tiếp, nhắn tin |
 
 ---
 
@@ -180,6 +182,7 @@ pumiah-social/
 - 💬 **Bình luận** — Thêm, xóa, với thông tin tác giả
 - ❤️ **Lượt thích** — Thích/bỏ thích bài đăng và bình luận
 - 🔔 **Thông báo** — Thời gian thực với huy hiệu chưa đọc
+- 💬 **Pumiah Messenger** — Nhắn tin 1-1 thời gian thực với bạn bè
 - 📱 **Responsive** — Tab di động phía dưới, icon tablet, sidebar desktop
 - 🌐 **PWA** — Hỗ trợ ngoại tuyến, có thể cài đặt
 - 🎨 **Glassmorphism Tối** — Thiết kế cao cấp với hiệu ứng chuyển động
@@ -189,7 +192,7 @@ pumiah-social/
 ## Thiết Lập Supabase
 
 ### Các Bảng Cơ Sở Dữ Liệu
-Schema tạo 7 bảng với chính sách RLS:
+Schema tạo 9 bảng với chính sách RLS:
 - `profiles` — Hồ sơ người dùng
 - `friend_requests` — Yêu cầu kết bạn đang chờ/đã chấp nhận/đã từ chối
 - `friendships` — Cặp bạn bè đã xác nhận
@@ -197,6 +200,8 @@ Schema tạo 7 bảng với chính sách RLS:
 - `comments` — Bình luận bài đăng
 - `likes` — Lượt thích bài đăng và bình luận
 - `notifications` — Thông báo hoạt động
+- `conversations` — Cuộc hội thoại nhắn tin 1-1
+- `messages` — Tin nhắn trong cuộc hội thoại
 
 ### Buckets Lưu Trữ
 Hai bucket công khai với tải lên đã xác thực:
@@ -204,7 +209,7 @@ Hai bucket công khai với tải lên đã xác thực:
 - `post_images` — Ảnh tải lên bài đăng
 
 ### Thời Gian Thực
-Đã bật trên: `posts`, `notifications`, `comments`, `likes`
+Đã bật trên: `posts`, `notifications`, `comments`, `likes`, `conversations`, `messages`
 
 ---
 
