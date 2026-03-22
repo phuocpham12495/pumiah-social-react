@@ -79,8 +79,7 @@ export default function AuthProvider({ children }) {
   async function updateProfile(updates) {
     const { data, error } = await supabase
       .from('profiles')
-      .update(updates)
-      .eq('id', user.id)
+      .upsert({ id: user.id, ...updates })
       .select()
       .single()
 

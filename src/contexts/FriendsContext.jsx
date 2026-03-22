@@ -74,16 +74,19 @@ export default function FriendsProvider({ children }) {
   }, [fetchFriends, fetchFriendRequests])
 
   async function sendRequest(receiverId) {
-    const { data, error } = await supabase
-      .from('friend_requests')
-      .insert({ sender_id: user.id, receiver_id: receiverId, status: 'pending' })
-      .select()
-      .single()
+    try {
+      const { data, error } = await supabase.rpc('send_friend_request', {
+        target_user_id: receiverId,
+      })
 
-    if (!error) {
+      if (error) throw error
+
       fetchFriendRequests()
+      return { data, error: null }
+    } catch (err) {
+      console.error('Send friend request error:', err)
+      return { data: null, error: err }
     }
-    return { data, error }
   }
 
   async function acceptRequest(requestId) {
@@ -120,17 +123,34 @@ export default function FriendsProvider({ children }) {
   }
 
   async function removeFriend(friendUserId) {
-    const ids = [user.id, friendUserId].sort()
-    const { error } = await supabase
-      .from('friendships')
-      .delete()
-      .eq('user1_id', ids[0])
-      .eq('user2_id', ids[1])
+    try {
+      // Try deleting with both possible orderings of user IDs
+      const { error, count } = await supabase
+        .from('friendships')
+        .delete()
+        .or(
+          `and(user1_id.eq.${user.id},user2_id.eq.${friendUserId}),and(user1_id.eq.${friendUserId},user2_id.eq.${user.id})`
+        )
 
-    if (!error) {
+      if (error) {
+        console.error('Error removing friend:', error)
+        return { error }
+      }
+
+      // Also clean up any friend_requests between the two users
+      await supabase
+        .from('friend_requests')
+        .delete()
+        .or(
+          `and(sender_id.eq.${user.id},receiver_id.eq.${friendUserId}),and(sender_id.eq.${friendUserId},receiver_id.eq.${user.id})`
+        )
+
       setFriends(prev => prev.filter(f => f.id !== friendUserId))
+      return { error: null }
+    } catch (err) {
+      console.error('Remove friend exception:', err)
+      return { error: err }
     }
-    return { error }
   }
 
   function getFriendStatus(userId) {

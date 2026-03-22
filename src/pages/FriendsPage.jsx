@@ -15,6 +15,8 @@ export default function FriendsPage() {
   const { user } = useAuth()
   const { friends, friendRequests, acceptRequest, declineRequest, removeFriend, sendRequest, getFriendStatus, loading } = useFriends()
   const [tab, setTab] = useState('friends')
+  const [removingId, setRemovingId] = useState(null)
+  const [removeError, setRemoveError] = useState('')
 
   // Find tab state
   const [query, setQuery] = useState('')
@@ -153,6 +155,7 @@ export default function FriendsPage() {
       {/* Friends Tab */}
       {tab === 'friends' && (
         <div className="friends-page__list">
+          {removeError && <div className="auth-page__error">{removeError}</div>}
           {friends.length === 0 ? (
             <Card><p className="friends-page__empty">No friends yet. Start connecting!</p></Card>
           ) : (
@@ -169,9 +172,14 @@ export default function FriendsPage() {
                   variant="ghost"
                   size="sm"
                   icon={<FiUserX />}
-                  onClick={() => {
-                    if (window.confirm(`Remove ${friend.full_name} from friends?`)) {
-                      removeFriend(friend.id)
+                  loading={removingId === friend.id}
+                  onClick={async () => {
+                    setRemoveError('')
+                    setRemovingId(friend.id)
+                    const { error } = await removeFriend(friend.id)
+                    setRemovingId(null)
+                    if (error) {
+                      setRemoveError(error.message || 'Failed to remove friend.')
                     }
                   }}
                 >

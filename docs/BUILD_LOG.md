@@ -167,19 +167,49 @@
 
 ---
 
+## Phiên 4: 2026-03-22
+
+### [15:00] Sửa Lỗi Tạo Hồ Sơ Người Dùng Mới
+- **Vấn đề**: Người dùng mới gặp lỗi "Cannot coerce the result to a single JSON object" khi tạo hồ sơ
+- **Nguyên nhân gốc**: `updateProfile` trong `AuthContext.jsx` dùng `.update()` — yêu cầu hàng đã tồn tại. Người dùng mới chưa có hàng nào
+- **Giải pháp**: Đổi `.update()` → `.upsert()` để vừa tạo mới vừa cập nhật
+- **Tệp sửa**: `AuthContext.jsx`
+
+### [15:15] Sửa Lỗi Xóa Bạn Bè
+- **Vấn đề**: Người dùng không thể xóa bạn bè — `window.confirm` chặn JS + sai thứ tự ID
+- **Giải pháp**:
+  - Xóa `window.confirm` chặn luồng
+  - Dùng `.or()` để xử lý cả hai thứ tự `user1_id`/`user2_id`
+  - Thêm dọn dẹp `friend_requests` liên quan
+  - Thêm trạng thái loading và hiển thị lỗi
+- **Tệp sửa**: `FriendsContext.jsx`, `FriendsPage.jsx`
+
+### [15:30] Sửa Lỗi Thêm Bạn Bè (Không Gửi Được Yêu Cầu)
+- **Vấn đề**: Gặp lỗi 409 Conflict do bản ghi `friend_requests` cũ chặn insert mới
+- **Nguyên nhân gốc**: Thiếu chính sách RLS DELETE và UPDATE cho sender trên bảng `friend_requests`
+- **Giải pháp**:
+  - Thêm 2 chính sách RLS mới (DELETE + UPDATE cho sender)
+  - Tạo hàm RPC `send_friend_request` (`SECURITY DEFINER`) — xóa bản ghi cũ rồi tạo mới
+  - Đổi `sendRequest` trong frontend dùng `supabase.rpc()` thay vì insert/update trực tiếp
+- **Tệp sửa**: `FriendsContext.jsx`, `schema.sql`
+- **SQL mới**: 2 RLS policies + 1 RPC function trong Supabase
+
+---
+
 ## Tóm Tắt Chỉ Số Xây Dựng
 
 | Chỉ số | Giá trị |
 |--------|---------|
-| Tổng tệp đã tạo/sửa | 54 |
+| Tổng tệp đã tạo/sửa | 58 |
 | React components | 16 |
 | Tệp CSS | 14 |
 | Trang | 9 |
 | Contexts | 4 |
 | Bảng Supabase | 9 |
-| RLS policies | 27 |
+| RLS policies | 29 |
 | Database triggers | 4 |
-| Lỗi đã sửa | 4 |
+| Hàm RPC | 1 |
+| Lỗi đã sửa | 7 |
 | Tính năng mới | 2 (Tìm Bạn Bè, Pumiah Messenger) |
 | Thời gian build (npm install) | ~14 giây |
 | Vite cold start | ~935ms |

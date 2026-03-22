@@ -79,10 +79,11 @@
       "danh_muc": "Bảo mật",
       "phan_tram_tien_do": 75,
       "vi_du": [
-        "21 + 6 chính sách RLS trên 9 bảng",
+        "21 + 8 chính sách RLS trên 9 bảng",
         "Chính sách đọc: công khai vs chỉ chủ sở hữu",
         "Chính sách ghi: kiểm tra auth.uid()",
-        "Chính sách storage: đọc công khai, ghi đã xác thực"
+        "Chính sách storage: đọc công khai, ghi đã xác thực",
+        "Gỡ lỗi lỗi 403/409 do thiếu chính sách RLS (DELETE + UPDATE cho sender)"
       ]
     },
     {
@@ -92,7 +93,8 @@
       "vi_du": [
         "Hàm trigger PL/pgSQL",
         "Tự động thông báo khi thích, bình luận, yêu cầu kết bạn",
-        "Hàm SECURITY DEFINER cho chèn xuyên người dùng"
+        "Hàm SECURITY DEFINER cho chèn xuyên người dùng",
+        "Hàm RPC `send_friend_request` — thao tác nguyên tử vượt qua RLS"
       ]
     },
     {

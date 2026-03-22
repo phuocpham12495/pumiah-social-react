@@ -81,9 +81,9 @@ Khi mount (user thay đổi):
 
 Các hàm trợ giúp:
   ├── getFriendStatus(userId) → 'self' | 'friends' | 'request_sent' | 'request_received' | 'none'
-  ├── sendRequest(receiverId) → INSERT friend_requests → refetch
+  ├── sendRequest(receiverId) → RPC 'send_friend_request' → xóa bản ghi cũ + INSERT mới → refetch
   ├── acceptRequest(requestId) → UPDATE status → INSERT friendship → refetch
-  └── removeFriend(userId) → DELETE friendship → cập nhật state cục bộ
+  └── removeFriend(userId) → DELETE friendship (cả hai thứ tự) + DELETE friend_requests → cập nhật state
 
 Tìm bạn bè (FriendsPage tab Find):
   ├── Tìm kiếm: supabase.from('profiles').or(ilike username, ilike full_name)

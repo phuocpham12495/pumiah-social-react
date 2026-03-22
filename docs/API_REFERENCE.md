@@ -258,9 +258,12 @@ interface Message {
 
 | Thao tác | Phương thức | Chính sách RLS |
 |----------|-------------|----------------|
-| **Gửi** | `supabase.from('friend_requests').insert({ sender_id, receiver_id })` | Chỉ với vai trò người gửi |
+| **Gửi** | `supabase.rpc('send_friend_request', { target_user_id })` | RPC `SECURITY DEFINER` (xử lý nội bộ) |
 | **Chấp nhận** | `supabase.from('friend_requests').update({ status: 'accepted' }).eq('id', reqId)` | Chỉ với vai trò người nhận |
 | **Từ chối** | `supabase.from('friend_requests').update({ status: 'declined' }).eq('id', reqId)` | Chỉ với vai trò người nhận |
+| **Xóa** | `supabase.from('friend_requests').delete().eq(...)` | Chỉ với vai trò người gửi |
+
+> **Ghi chú**: Hàm RPC `send_friend_request` xóa mọi bản ghi cũ giữa hai người dùng trước khi tạo yêu cầu mới, tránh lỗi 409 Conflict.
 
 ### Tình Bạn (Friendships)
 

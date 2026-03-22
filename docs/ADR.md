@@ -221,6 +221,30 @@ Cần thêm tính năng nhắn tin trực tiếp giữa bạn bè, với giao di
 
 ---
 
+## ADR-009: Hàm RPC Cho Yêu Cầu Kết Bạn
+
+| Trường | Giá trị |
+|--------|---------|
+| **Trạng thái** | Đã chấp nhận |
+| **Ngày** | 2026-03-22 |
+| **Quyết định** | Hàm RPC `send_friend_request` với `SECURITY DEFINER` |
+| **Phương án thay thế** | Insert/update trực tiếp từ client, Upsert |
+
+### Bối cảnh
+Khi gửi yêu cầu kết bạn lần hai (sau khi đã xóa/từ chối), bản ghi cũ trong `friend_requests` chặn insert mới (409 Conflict). RLS ngăn cản người dùng xóa/sửa bản ghi của người khác.
+
+### Quyết định
+Tạo hàm RPC `SECURITY DEFINER` xử lý nguyên tử: xóa bản ghi cũ cả hai hướng → tạo yêu cầu mới.
+
+### Đánh đổi
+| Ưu điểm | Nhược điểm |
+|----------|------------|
+| Vượt qua giới hạn RLS | Logic chuyển từ client sang server |
+| Thao tác nguyên tử (không race condition) | Cần quản lý thêm hàm SQL |
+| Không bị lỗi 409 Conflict | Debug khó hơn (logic ẩn trong DB) |
+
+---
+
 ## Các Dependency Đã Chọn
 
 | Gói | Phiên bản | Mục đích | Phương án thay thế đã xem xét |

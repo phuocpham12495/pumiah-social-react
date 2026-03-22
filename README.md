@@ -137,7 +137,7 @@ pumiah-social/
 │   ├── main.jsx               # Điểm vào
 │   └── index.css              # Hệ thống thiết kế + styles toàn cục
 ├── supabase/
-│   └── schema.sql             # Schema cơ sở dữ liệu
+│   └── schema.sql             # Schema CSDL + RLS policies + RPC functions
 ├── docs/                      # Tài liệu
 │   ├── BUILD_LOG.md
 │   ├── ADR.md
@@ -192,7 +192,7 @@ pumiah-social/
 ## Thiết Lập Supabase
 
 ### Các Bảng Cơ Sở Dữ Liệu
-Schema tạo 9 bảng với chính sách RLS:
+Schema tạo 9 bảng với 29 chính sách RLS:
 - `profiles` — Hồ sơ người dùng
 - `friend_requests` — Yêu cầu kết bạn đang chờ/đã chấp nhận/đã từ chối
 - `friendships` — Cặp bạn bè đã xác nhận
@@ -207,6 +207,9 @@ Schema tạo 9 bảng với chính sách RLS:
 Hai bucket công khai với tải lên đã xác thực:
 - `profile_photos` — Avatars và ảnh bìa
 - `post_images` — Ảnh tải lên bài đăng
+
+### Hàm RPC
+- `send_friend_request(target_user_id)` — Gửi yêu cầu kết bạn nguyên tử (xóa bản ghi cũ + tạo mới)
 
 ### Thời Gian Thực
 Đã bật trên: `posts`, `notifications`, `comments`, `likes`, `conversations`, `messages`

@@ -57,6 +57,37 @@ create policy "Friend requests: insert as sender" on public.friend_requests
 create policy "Friend requests: update as receiver" on public.friend_requests
   for update to authenticated using (auth.uid() = receiver_id);
 
+create policy "Friend requests: update as sender" on public.friend_requests
+  for update to authenticated using (auth.uid() = sender_id);
+
+create policy "Friend requests: delete as sender" on public.friend_requests
+  for delete to authenticated using (auth.uid() = sender_id);
+
+-- RPC: Atomically send a friend request (cleans up stale records)
+create or replace function public.send_friend_request(target_user_id uuid)
+returns json as $$
+declare
+  result json;
+  current_user_id uuid := auth.uid();
+begin
+  delete from public.friend_requests
+  where (sender_id = current_user_id and receiver_id = target_user_id)
+     or (sender_id = target_user_id and receiver_id = current_user_id);
+
+  delete from public.friendships
+  where (user1_id = least(current_user_id, target_user_id) and user2_id = greatest(current_user_id, target_user_id));
+
+  insert into public.friend_requests (sender_id, receiver_id, status)
+  values (current_user_id, target_user_id, 'pending');
+
+  select row_to_json(fr) into result
+  from public.friend_requests fr
+  where fr.sender_id = current_user_id and fr.receiver_id = target_user_id;
+
+  return result;
+end;
+$$ language plpgsql security definer;
+
 -- =============================================
 -- 3. FRIENDSHIPS TABLE
 -- =============================================
