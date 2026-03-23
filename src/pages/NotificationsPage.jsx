@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FiHeart, FiMessageCircle, FiUserPlus, FiUserCheck, FiCheck, FiCheckCircle } from 'react-icons/fi'
+import { FiHeart, FiMessageCircle, FiUserPlus, FiUserCheck, FiCheck, FiCheckCircle, FiTrash2 } from 'react-icons/fi'
 import { useNotifications } from '../contexts/NotificationsContext'
 import Avatar from '../components/ui/Avatar'
 import Button from '../components/ui/Button'
@@ -36,7 +36,7 @@ const NOTIFICATION_COLORS = {
 
 export default function NotificationsPage() {
   const navigate = useNavigate()
-  const { notifications, markAsRead, markAllAsRead, unreadCount } = useNotifications()
+  const { notifications, markAsRead, markAllAsRead, clearAllNotifications, unreadCount } = useNotifications()
 
   function handleClick(notif) {
     if (!notif.is_read) markAsRead(notif.id)
@@ -47,11 +47,18 @@ export default function NotificationsPage() {
     <div className="notifications-page">
       <div className="notifications-page__header">
         <h1 className="notifications-page__title">Notifications</h1>
-        {unreadCount > 0 && (
-          <Button variant="ghost" size="sm" icon={<FiCheckCircle />} onClick={markAllAsRead}>
-            Mark all read
-          </Button>
-        )}
+        <div className="notifications-page__actions">
+          {unreadCount > 0 && (
+            <Button variant="ghost" size="sm" icon={<FiCheckCircle />} onClick={markAllAsRead}>
+              Mark all read
+            </Button>
+          )}
+          {notifications.length > 0 && (
+            <Button variant="ghost" size="sm" icon={<FiTrash2 />} onClick={clearAllNotifications}>
+              Clear all
+            </Button>
+          )}
+        </div>
       </div>
 
       <div className="notifications-page__list">

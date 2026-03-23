@@ -101,6 +101,19 @@ export default function NotificationsProvider({ children }) {
     }
   }
 
+  async function clearAllNotifications() {
+    const { error } = await supabase
+      .from('notifications')
+      .delete()
+      .eq('recipient_id', user.id)
+
+    if (!error) {
+      setNotifications([])
+      setUnreadCount(0)
+    }
+    return { error }
+  }
+
   const value = {
     notifications,
     unreadCount,
@@ -108,6 +121,7 @@ export default function NotificationsProvider({ children }) {
     fetchNotifications,
     markAsRead,
     markAllAsRead,
+    clearAllNotifications,
   }
 
   return (
